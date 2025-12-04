@@ -2,7 +2,7 @@ name: Weekly DevOps Summary (Gemini)
 
 on:
   schedule:
-    - cron: "0 0 * * 0"    # Sunday at midnight UTC
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 jobs:
@@ -18,45 +18,35 @@ jobs:
       - name: Generate Weekly Summary File
         run: |
           Summary="WEEKLY_SUMMARY.md"
-          echo "# 📅 Weekly DevOps Summary (Auto Generated)" > $Summary
-          echo "" >> $Summary
-          echo "**Generated on:** $(date)" >> $Summary
-          echo "" >> $Summary
 
-          echo "This summary contains all DevOps content generated in the last 7 days across:" >> $Summary
-          echo "- DevOps Interview Questions" >> $Summary
-          echo "- Docker Best Practices" >> $Summary
-          echo "- Kubernetes Examples" >> $Summary
-          echo "- CI/CD Tips" >> $Summary
+          echo "# 📅 Weekly DevOps Summary" > $Summary
           echo "" >> $Summary
-
-          echo "## 🔥 Summary of Last 7 Days" >> $Summary
+          echo "Generated on: $(date)" >> $Summary
+          echo "" >> $Summary
+          echo "---" >> $Summary
           echo "" >> $Summary
 
           for dir in devops-interview docker kubernetes cicd; do
-            echo "### 🔹 $(basename $dir)" >> $Summary
+            echo "## 🔹 $(basename $dir)" >> $Summary
             echo "" >> $Summary
 
             if [ -d "$dir" ]; then
               find "$dir" -type f -mtime -7 | sort | while read file; do
-                echo "#### File: $file" >> $Summary
+                echo "### File: $file" >> $Summary
                 echo "" >> $Summary
                 cat "$file" >> $Summary
                 echo "" >> $Summary
               done
-            else
-              echo "_No content found in this category this week._" >> $Summary
-              echo "" >> $Summary
             fi
           done
 
-      - name: Configure Git for pushing
+      - name: Configure Git
         run: |
           git config --global user.name "Weekly Summary Bot"
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit Weekly Summary
+      - name: Commit summary
         run: |
           git add WEEKLY_SUMMARY.md
           git commit -m "docs(summary): auto-generate weekly DevOps summary" || exit 0

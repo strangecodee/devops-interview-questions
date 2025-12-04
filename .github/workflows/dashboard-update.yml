@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "30 0 * * *" # Every day at 00:30 UTC
+    - cron: "30 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -24,19 +24,20 @@ jobs:
           echo "Last Updated: $(date)" >> $DASH
           echo "" >> $DASH
 
-          echo "## 🔥 Latest 7 Days Content" >> $DASH
-          echo "" >> $DASH
-
-          # Safe find (ignore missing folders)
           for dir in devops-interview docker kubernetes cicd; do
+            echo "## 🔹 $(basename $dir)" >> $DASH
+            echo "" >> $DASH
+
             if [ -d "$dir" ]; then
               find "$dir" -type f -mtime -7 | while read file; do
                 echo "- [$file]($file)" >> $DASH
               done
             fi
+
+            echo "" >> $DASH
           done
 
-      - name: Configure Git for pushing
+      - name: Configure Git
         run: |
           git config --global user.name "Dashboard Bot"
           git config --global user.email "bot@github.com"
@@ -45,5 +46,5 @@ jobs:
       - name: Commit dashboard update
         run: |
           git add DASHBOARD.md
-          git commit -m "docs(dashboard): auto-update dashboard with latest content" || exit 0
+          git commit -m "docs(dashboard): auto-update dashboard" || exit 0
           git push

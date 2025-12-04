@@ -2,7 +2,7 @@ name: Daily DevOps Content Generator (Gemini)
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # Runs daily at midnight UTC
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
   workflow_dispatch:
 
 jobs:
@@ -22,22 +22,35 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # RANDOMNESS BOOSTERS (Guarantee daily unique content)
-          RANDOM_TOPIC=$(shuf -e "AWS" "Terraform" "Helm" "GitOps" "ArgoCD" "Istio" "SRE" "Scalability" "Monitoring" "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" "Docker Layers" "Chaos Engineering")
+          # ----------------------------------------------------------
+          # RANDOM TOPIC (fixed: safe multi-word random selection)
+          # ----------------------------------------------------------
+          RANDOM_TOPIC=$(printf "%s\n" \
+            AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
+            "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
+            "Docker Layers" "Chaos Engineering" | shuf -n 1)
+
           RANDOM_SEED=$(date +%s)
 
+          # ----------------------------------------------------------
+          # PROMPT PACKS FOR EACH CATEGORY
+          # ----------------------------------------------------------
           declare -A categories=(
-            ["devops-interview"]="Generate a unique DevOps interview question and answer. Ensure it is NOT similar to any previous content. Include today's random topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["docker"]="Generate a unique advanced Docker best practice with example. Must not repeat past ideas. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["kubernetes"]="Generate a completely unique Kubernetes YAML example with explanation. Avoid repeating any previous day's content. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["cicd"]="Generate a unique CI/CD tip (GitHub Actions or Jenkins). Ensure no repetition. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["devops-interview"]="Generate a unique DevOps interview question and answer. Must be fully unique, not similar to previous content. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["docker"]="Generate a unique Docker best practice with a clear example. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["kubernetes"]="Generate a unique Kubernetes YAML example with detailed explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["cicd"]="Generate a unique CI/CD improvement tip (GitHub Actions or Jenkins). Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
           )
 
+          # ----------------------------------------------------------
+          # LOOP AND GENERATE CONTENT
+          # ----------------------------------------------------------
           for folder in "${!categories[@]}"; do
             mkdir -p $folder
             file="$folder/$(date +'%Y-%m-%d').md"
             prompt="${categories[$folder]}"
 
+            # FIXED: valid JSON with double quotes only
             response=$(curl -s -X POST \
               -H "Content-Type: application/json" \
               -H "x-goog-api-key: $GEMINI_API_KEY" \
@@ -48,11 +61,14 @@ jobs:
               }" \
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent")
 
+            # Extract text safely (null-safe)
+            OUTPUT=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text // "⚠️ Error: Gemini returned no content"')
+
             echo "# $(basename $folder) - $(date)" > $file
             echo "" >> $file
             echo "**Random Topic of the Day:** $RANDOM_TOPIC" >> $file
             echo "" >> $file
-            echo "$(echo $response | jq -r '.candidates[0].content.parts[0].text')" >> $file
+            echo "$OUTPUT" >> $file
           done
 
       - name: Configure Git for pushing
@@ -69,12 +85,12 @@ jobs:
 
           git commit \
             -m "feat(content): add unique daily DevOps content for $DATE" \
-            -m "feat(interview): added new DevOps interview question" \
-            -m "feat(docker): added new Docker best practice" \
-            -m "feat(kubernetes): added new Kubernetes YAML example" \
-            -m "feat(cicd): added new CI/CD improvement tip" \
-            -m "ci(automation): daily content auto-generated via Gemini AI (seed: $RANDOM_SEED)" \
-            -m "docs(summary): dashboard & weekly summary will auto-refresh in scheduled workflows" \
+            -m "feat(interview): new DevOps interview question added" \
+            -m "feat(docker): new Docker best practice" \
+            -m "feat(kubernetes): new Kubernetes YAML example" \
+            -m "feat(cicd): new CI/CD improvement tip" \
+            -m "ci(automation): auto-generated via Gemini (seed $RANDOM_SEED)" \
+            -m "docs(summary): dashboard & summary will auto-update" \
             || exit 0
 
           git push
