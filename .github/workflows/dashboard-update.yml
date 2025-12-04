@@ -1,0 +1,37 @@
+name: Update Dashboard
+
+on:
+  schedule:
+    - cron: "30 0 * * *"    # Every day 00:30 UTC
+  workflow_dispatch:
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Update Dashboard
+        run: |
+          DASH="DASHBOARD.md"
+          echo "# 📊 DevOps Dashboard (Auto Updated)" > $DASH
+          echo "" >> $DASH
+          echo "Last Updated: $(date)" >> $DASH
+          echo "" >> $DASH
+
+          echo "## 🔥 Latest 7 Days Content" >> $DASH
+          echo "" >> $DASH
+
+          find devops-interview docker kubernetes cicd -type f -mtime -7 | while read file; do
+            echo "- [$file]($file)" >> $DASH
+          done
+
+      - name: Commit dashboard
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Dashboard Bot"
+          git add DASHBOARD.md
+          git commit -m "Dashboard updated: $(date)" || exit 0
+          git push

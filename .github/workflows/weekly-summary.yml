@@ -1,0 +1,43 @@
+name: Weekly DevOps Summary (Gemini)
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"    # Sunday at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Gather weekly content
+        run: |
+          last_week=$(date -d "7 days ago" +%Y-%m-%d)
+          today=$(date +%Y-%m-%d)
+
+          Summary="WEEKLY_SUMMARY.md"
+          echo "# Weekly DevOps Summary - $(date)" > $Summary
+          echo "" >> $Summary
+
+          for dir in devops-interview docker kubernetes cicd; do
+            echo "## $(basename $dir)" >> $Summary
+            echo "" >> $Summary
+
+            for file in $(ls $dir/*.md 2>/dev/null); do
+              echo "### File: $file" >> $Summary
+              echo "" >> $Summary
+              cat $file >> $Summary
+              echo "" >> $Summary
+            done
+          done
+
+      - name: Commit summary
+        run: |
+          git config --global user.name "Weekly Summary Bot"
+          git config --global user.email "bot@github.com"
+          git add WEEKLY_SUMMARY.md
+          git commit -m "Weekly summary generated: $(date)" || exit 0
+          git push
