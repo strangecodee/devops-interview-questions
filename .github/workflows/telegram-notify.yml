@@ -25,22 +25,16 @@ jobs:
           DATE="$(date)"
 
           if [ "$STATUS" = "success" ]; then
-            read -r -d '' MSG << EOF
-            🎉 *Workflow Success!*
-            *Workflow:* $WF
-            *Status:* SUCCESS
-            *Date:* $DATE
-            EOF
+            RAW_MESSAGE="🎉 *Workflow Success!*\n\nWorkflow: *$WF*\nStatus: SUCCESS\nDate: $DATE\n\nEverything looks good! 🚀"
           else
-            read -r -d '' MSG << EOF
-            ⚠️ *Workflow Failed!*
-            *Workflow:* $WF
-            *Status:* FAILED
-            *Date:* $DATE
-            EOF
+            RAW_MESSAGE="⚠️ *Workflow Failed!*\n\nWorkflow: *$WF*\nStatus: FAILED\nDate: $DATE\n\nPlease check the GitHub Actions logs. 🛠️"
           fi
 
+          # Encode message to base64 (YAML-safe)
+          ENCODED=$(echo "$RAW_MESSAGE" | base64)
+
+          # Decode and send to Telegram
           curl -s -X POST "https://api.telegram.org/bot$BOT/sendMessage" \
             -d chat_id="$CHAT" \
             -d parse_mode="Markdown" \
-            -d text="$MSG"
+            -d text="$(echo "$ENCODED" | base64 --decode)"
