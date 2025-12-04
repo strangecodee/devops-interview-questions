@@ -20,21 +20,27 @@ jobs:
           BOT: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          STATUS=${{ github.event.workflow_run.conclusion }}
-          WF=${{ github.event.workflow_run.name }}
-          DATE=$(date)
+          STATUS="${{ github.event.workflow_run.conclusion }}"
+          WF="${{ github.event.workflow_run.name }}"
+          DATE="$(date)"
 
           if [ "$STATUS" = "success" ]; then
-            MSG="🎉 *Success!*
-            Workflow: *$WF*
-            Status: *SUCCESS*
-            Date: $DATE"
+            read -r -d '' MSG << EOF
+            🎉 *Workflow Success!*
+            *Workflow:* $WF
+            *Status:* SUCCESS
+            *Date:* $DATE
+            EOF
           else
-            MSG="⚠️ *Workflow Failed!*
-            Workflow: *$WF*
-            Status: *FAILED*
-            Date: $DATE"
+            read -r -d '' MSG << EOF
+            ⚠️ *Workflow Failed!*
+            *Workflow:* $WF
+            *Status:* FAILED
+            *Date:* $DATE
+            EOF
           fi
 
           curl -s -X POST "https://api.telegram.org/bot$BOT/sendMessage" \
-          -d chat_id="$CHAT" -d parse_mode="Markdown" -d text="$MSG"
+            -d chat_id="$CHAT" \
+            -d parse_mode="Markdown" \
+            -d text="$MSG"
