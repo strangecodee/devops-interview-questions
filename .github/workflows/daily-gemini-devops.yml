@@ -59,7 +59,7 @@ jobs:
                   \"parts\": [{\"text\": \"$prompt\"}]
                 }]
               }" \
-              "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent")
+              "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent")
 
             # Extract text safely (null-safe)
             OUTPUT=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text // "⚠️ Error: Gemini returned no content"')
