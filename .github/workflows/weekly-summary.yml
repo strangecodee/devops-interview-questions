@@ -8,36 +8,56 @@ on:
 jobs:
   summary:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Gather weekly content
+      - name: Generate Weekly Summary File
         run: |
-          last_week=$(date -d "7 days ago" +%Y-%m-%d)
-          today=$(date +%Y-%m-%d)
-
           Summary="WEEKLY_SUMMARY.md"
-          echo "# Weekly DevOps Summary - $(date)" > $Summary
+          echo "# 📅 Weekly DevOps Summary (Auto Generated)" > $Summary
+          echo "" >> $Summary
+          echo "**Generated on:** $(date)" >> $Summary
+          echo "" >> $Summary
+
+          echo "This summary contains all DevOps content generated in the last 7 days across:" >> $Summary
+          echo "- DevOps Interview Questions" >> $Summary
+          echo "- Docker Best Practices" >> $Summary
+          echo "- Kubernetes Examples" >> $Summary
+          echo "- CI/CD Tips" >> $Summary
+          echo "" >> $Summary
+
+          echo "## 🔥 Summary of Last 7 Days" >> $Summary
           echo "" >> $Summary
 
           for dir in devops-interview docker kubernetes cicd; do
-            echo "## $(basename $dir)" >> $Summary
+            echo "### 🔹 $(basename $dir)" >> $Summary
             echo "" >> $Summary
 
-            for file in $(ls $dir/*.md 2>/dev/null); do
-              echo "### File: $file" >> $Summary
+            if [ -d "$dir" ]; then
+              find "$dir" -type f -mtime -7 | sort | while read file; do
+                echo "#### File: $file" >> $Summary
+                echo "" >> $Summary
+                cat "$file" >> $Summary
+                echo "" >> $Summary
+              done
+            else
+              echo "_No content found in this category this week._" >> $Summary
               echo "" >> $Summary
-              cat $file >> $Summary
-              echo "" >> $Summary
-            done
+            fi
           done
 
-      - name: Commit summary
+      - name: Configure Git for pushing
         run: |
           git config --global user.name "Weekly Summary Bot"
           git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Commit Weekly Summary
+        run: |
           git add WEEKLY_SUMMARY.md
-          git commit -m "Weekly summary generated: $(date)" || exit 0
+          git commit -m "docs(summary): auto-generate weekly DevOps summary" || exit 0
           git push

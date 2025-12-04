@@ -2,20 +2,23 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "30 0 * * *"    # Every day 00:30 UTC
+    - cron: "30 0 * * *" # Every day at 00:30 UTC
   workflow_dispatch:
 
 jobs:
   dashboard:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Update Dashboard
+      - name: Update Dashboard File
         run: |
           DASH="DASHBOARD.md"
+
           echo "# 📊 DevOps Dashboard (Auto Updated)" > $DASH
           echo "" >> $DASH
           echo "Last Updated: $(date)" >> $DASH
@@ -24,14 +27,23 @@ jobs:
           echo "## 🔥 Latest 7 Days Content" >> $DASH
           echo "" >> $DASH
 
-          find devops-interview docker kubernetes cicd -type f -mtime -7 | while read file; do
-            echo "- [$file]($file)" >> $DASH
+          # Safe find (ignore missing folders)
+          for dir in devops-interview docker kubernetes cicd; do
+            if [ -d "$dir" ]; then
+              find "$dir" -type f -mtime -7 | while read file; do
+                echo "- [$file]($file)" >> $DASH
+              done
+            fi
           done
 
-      - name: Commit dashboard
+      - name: Configure Git for pushing
         run: |
-          git config --global user.email "bot@github.com"
           git config --global user.name "Dashboard Bot"
+          git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Commit dashboard update
+        run: |
           git add DASHBOARD.md
-          git commit -m "Dashboard updated: $(date)" || exit 0
+          git commit -m "docs(dashboard): auto-update dashboard with latest content" || exit 0
           git push

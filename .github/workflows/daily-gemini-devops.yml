@@ -2,12 +2,14 @@ name: Daily DevOps Content Generator (Gemini)
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs every day at midnight UTC
+    - cron: "0 0 * * *"   # Runs daily at midnight UTC
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -16,15 +18,19 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y curl jq
 
-      - name: Generate content with Gemini
+      - name: Generate unique daily content with Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
+          # RANDOMNESS BOOSTERS (Guarantee daily unique content)
+          RANDOM_TOPIC=$(shuf -e "AWS" "Terraform" "Helm" "GitOps" "ArgoCD" "Istio" "SRE" "Scalability" "Monitoring" "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" "Docker Layers" "Chaos Engineering")
+          RANDOM_SEED=$(date +%s)
+
           declare -A categories=(
-            ["devops-interview"]="Generate one DevOps interview question with answer."
-            ["docker"]="Generate a daily Docker best practice tip with example."
-            ["kubernetes"]="Generate a Kubernetes YAML example with explanation."
-            ["cicd"]="Generate one CI/CD tip for Jenkins or GitHub Actions."
+            ["devops-interview"]="Generate a unique DevOps interview question and answer. Ensure it is NOT similar to any previous content. Include today's random topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["docker"]="Generate a unique advanced Docker best practice with example. Must not repeat past ideas. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["kubernetes"]="Generate a completely unique Kubernetes YAML example with explanation. Avoid repeating any previous day's content. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["cicd"]="Generate a unique CI/CD tip (GitHub Actions or Jenkins). Ensure no repetition. Include topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
           )
 
           for folder in "${!categories[@]}"; do
@@ -36,21 +42,39 @@ jobs:
               -H "Content-Type: application/json" \
               -H "x-goog-api-key: $GEMINI_API_KEY" \
               -d "{
-                'contents': [{
-                  'parts': [{'text': '$prompt'}]
+                \"contents\": [{
+                  \"parts\": [{\"text\": \"$prompt\"}]
                 }]
               }" \
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent")
 
-            echo "# $(basename $folder) - $(date)" >> $file
+            echo "# $(basename $folder) - $(date)" > $file
+            echo "" >> $file
+            echo "**Random Topic of the Day:** $RANDOM_TOPIC" >> $file
             echo "" >> $file
             echo "$(echo $response | jq -r '.candidates[0].content.parts[0].text')" >> $file
           done
 
-      - name: Commit changes
+      - name: Configure Git for pushing
         run: |
           git config --global user.name "DevOps Daily Bot"
           git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Commit & push changes (Semantic Commits)
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+
           git add .
-          git commit -m "Daily DevOps update: $(date +'%Y-%m-%d')" || exit 0
+
+          git commit \
+            -m "feat(content): add unique daily DevOps content for $DATE" \
+            -m "feat(interview): added new DevOps interview question" \
+            -m "feat(docker): added new Docker best practice" \
+            -m "feat(kubernetes): added new Kubernetes YAML example" \
+            -m "feat(cicd): added new CI/CD improvement tip" \
+            -m "ci(automation): daily content auto-generated via Gemini AI (seed: $RANDOM_SEED)" \
+            -m "docs(summary): dashboard & weekly summary will auto-refresh in scheduled workflows" \
+            || exit 0
+
           git push

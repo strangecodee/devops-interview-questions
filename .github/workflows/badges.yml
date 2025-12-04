@@ -1,0 +1,57 @@
+name: Generate Repo Badges
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # Twice per day
+  workflow_dispatch:
+
+jobs:
+  badges:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Generate badges
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+
+          INTERVIEW_COUNT=$(find devops-interview -type f | wc -l)
+          DOCKER_COUNT=$(find docker -type f | wc -l)
+          K8S_COUNT=$(find kubernetes -type f | wc -l)
+          CICD_COUNT=$(find cicd -type f | wc -l)
+
+          echo "# 🏆 DevOps Repository Badges (Auto Updated)" > BADGES.md
+          echo "" >> BADGES.md
+
+          echo "![Last Update](https://img.shields.io/badge/Updated-$DATE-brightgreen)" >> BADGES.md
+          echo "![Automation](https://img.shields.io/badge/Automation-Daily-blue)" >> BADGES.md
+          echo "" >> BADGES.md
+
+          echo "## 📊 Category Counts" >> BADGES.md
+          echo "" >> BADGES.md
+          echo "![Interview](https://img.shields.io/badge/Interview_Questions-$INTERVIEW_COUNT-purple)" >> BADGES.md
+          echo "![Docker](https://img.shields.io/badge/Docker_Tips-$DOCKER_COUNT-blue)" >> BADGES.md
+          echo "![Kubernetes](https://img.shields.io/badge/Kubernetes_Examples-$K8S_COUNT-green)" >> BADGES.md
+          echo "![CI/CD](https://img.shields.io/badge/CI_CD_Tips-$CICD_COUNT-orange)" >> BADGES.md
+          echo "" >> BADGES.md
+
+          echo "## 🔗 Useful Links" >> BADGES.md
+          echo "- [Dashboard](./DASHBOARD.md)" >> BADGES.md
+          echo "- [Weekly Summary](./WEEKLY_SUMMARY.md)" >> BADGES.md
+          echo "- [Daily Workflows](./.github/workflows/)" >> BADGES.md
+
+      - name: Configure Git for pushing
+        run: |
+          git config --global user.name "Badge Bot"
+          git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Commit badges update
+        run: |
+          git add BADGES.md
+          git commit -m "docs(badges): auto-update repo badges" || exit 0
+          git push
