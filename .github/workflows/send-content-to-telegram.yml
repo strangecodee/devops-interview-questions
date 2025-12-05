@@ -1,0 +1,69 @@
+name: Send Daily DevOps Content to Telegram
+
+on:
+  workflow_run:
+    workflows:
+      - "Daily DevOps Content Generator (Gemini)"
+    types:
+      - completed
+
+jobs:
+  send_telegram:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read today's date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Send DevOps Content to Telegram
+        env:
+          BOT: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DATE: ${{ env.DATE }}
+        run: |
+          send_message () {
+            TEXT="$1"
+            curl -s -X POST "https://api.telegram.org/bot$BOT/sendMessage" \
+              -d chat_id="$CHAT" \
+              -d parse_mode="Markdown" \
+              --data-urlencode text="$TEXT" > /dev/null
+          }
+
+          # -------------------------------------
+          # CATEGORY LIST
+          # -------------------------------------
+          declare -A folders=(
+            ["DevOps Interview"]="devops-interview/$DATE.md"
+            ["Docker Tip"]="docker/$DATE.md"
+            ["Kubernetes Example"]="kubernetes/$DATE.md"
+            ["CI/CD Tip"]="cicd/$DATE.md"
+          )
+
+          # -------------------------------------
+          # SEND EACH CATEGORY FILE TO TELEGRAM
+          # -------------------------------------
+          for NAME in "${!folders[@]}"; do
+            FILE="${folders[$NAME]}"
+
+            if [ -f "$FILE" ]; then
+              CONTENT=$(cat "$FILE")
+
+              MESSAGE="📘 *$NAME*  
+            📅 Date: $DATE
+
+            $CONTENT"
+
+              # Prevent Telegram message limit (4096 chars)
+              echo "$MESSAGE" | fold -s -w 3800 | while read CHUNK; do
+                send_message "$CHUNK"
+                sleep 1
+              done
+            else
+              send_message "⚠️ File missing: $FILE"
+            fi
+          done
+
+          send_message "✅ All DevOps content for $DATE has been sent!"
