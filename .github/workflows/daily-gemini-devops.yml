@@ -23,6 +23,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           set -e
+          set -x
 
           # Pick random topic
           RANDOM_TOPIC=$(printf "%s\n" \
@@ -58,6 +59,10 @@ jobs:
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
 
             output=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
+
+            # DEBUG: print raw response and parsed output to help trace unexpected prefixes
+            echo "DEBUG: raw response -> [$response]"
+            echo "DEBUG: parsed output -> [$output]"
 
             # Write file
             echo "# $key — $(date)" > "$file"
