@@ -25,43 +25,43 @@ jobs:
           set -e
 
           # Pick random topic
-          RANDOM_TOPIC=$$(printf "%s\n" \
+          RANDOM_TOPIC=$(printf "%s\n" \
             AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
             "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
             "Docker Layers" "Chaos Engineering" | shuf -n 1)
 
-          RANDOM_SEED=$$(date +%s)
+          RANDOM_SEED=$(date +%s)
 
           # Category → prompt file mapping (POSIX-friendly)
           categories_list="devops-interview docker kubernetes cicd"
 
           # Generate content for each category
-          for key in $${categories_list}; do
-            prompt_file="prompts/$${key}.txt"
+          for key in ${categories_list}; do
+            prompt_file="prompts/${key}.txt"
 
-            base_prompt=$$(cat "$prompt_file")
+            base_prompt=$(cat "$prompt_file")
 
             # Build final prompt (--> avoids YAML key parsing)
-            prompt="$${base_prompt}
-            Topic --> $${RANDOM_TOPIC}
-            Seed  --> $${RANDOM_SEED}
+            prompt="${base_prompt}
+            Topic --> ${RANDOM_TOPIC}
+            Seed  --> ${RANDOM_SEED}
             "
 
             mkdir -p "$key"
-            file="$key/$$(date +'%Y-%m-%d_%H-%M').md"
+            file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
             # Request Gemini content
-            response=$$(curl -s -X POST \
+            response=$(curl -s -X POST \
               -H "Content-Type: application/json" \
-              -H "x-goog-api-key: $$GEMINI_API_KEY" \
-              -d "$$(jq -n --arg p "$prompt" '{contents:[{role:"user", parts:[{text:$p}]}]}')" \
+              -H "x-goog-api-key: $GEMINI_API_KEY" \
+              -d "$(jq -n --arg p "$prompt" '{contents:[{role:"user", parts:[{text:$p}]}]}')" \
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
 
-            output=$$(echo "$$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
+            output=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
 
             # Write file
-            echo "# $key — $$(date)" > "$file"
-            echo "**Topic -->** $${RANDOM_TOPIC}" >> "$file"
+            echo "# $key — $(date)" > "$file"
+            echo "**Topic -->** ${RANDOM_TOPIC}" >> "$file"
             echo "" >> "$file"
             echo "$$output" >> "$file"
 
@@ -77,5 +77,5 @@ jobs:
       - name: Commit & Push
         run: |
           git add .
-          git commit -m "content: auto-generated $$(date +'%Y-%m-%d %H:%M')" || exit 0
+          git commit -m "content: auto-generated $(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
