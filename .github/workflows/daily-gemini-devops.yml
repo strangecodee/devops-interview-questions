@@ -23,52 +23,94 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           set -e
-          set -x
 
-          # Pick random topic
-          RANDOM_TOPIC=$(printf "%s\n" \
+          # Set IST timezone
+          export TZ="Asia/Kolkata"
+
+          # ───────────────────────────────────────────────
+          # RANDOMIZATION ENGINE (guarantees uniqueness)
+          # ───────────────────────────────────────────────
+
+          RANDOM_TOPIC=$(
+            printf "%s\n" \
             AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
             "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
-            "Docker Layers" "Chaos Engineering" | shuf -n 1)
+            "Docker Layers" "Chaos Engineering" | shuf -n 1
+          )
 
           RANDOM_SEED=$(date +%s)
 
-          # Category → prompt file mapping (POSIX-friendly)
+          STYLE=$(
+            printf "%s\n" \
+            "Enterprise tone" \
+            "SRE-focused" \
+            "Security-heavy" \
+            "Performance-optimized" \
+            "Beginner-friendly" \
+            "Verbose explanation" \
+            "Short and concise" | shuf -n 1
+          )
+
+          DEPTH=$(
+            printf "%s\n" \
+            "Low detail" \
+            "Medium detail" \
+            "High detail" \
+            "Very high detail" | shuf -n 1
+          )
+
+          UNIQUE_KEYWORD=$(
+            printf "%s\n" \
+            phoenix nebula quantum atlas vector eclipse forge pulse matrix sentinel velocity spectrum nova titan \
+            | shuf -n 1
+          )
+
+          echo "Topic: $RANDOM_TOPIC"
+          echo "Seed: $RANDOM_SEED"
+          echo "Style: $STYLE"
+          echo "Depth: $DEPTH"
+          echo "Keyword: $UNIQUE_KEYWORD"
+
           categories_list="devops-interview docker kubernetes cicd"
 
-          # Generate content for each category
+          # ───────────────────────────────────────────────
+          # GENERATE CONTENT FOR EACH CATEGORY
+          # ───────────────────────────────────────────────
           for key in ${categories_list}; do
             prompt_file="prompts/${key}.txt"
-
             base_prompt=$(cat "$prompt_file")
 
-            # Build final prompt (--> avoids YAML key parsing)
+            # Final prompt with unique modifiers
             prompt="${base_prompt}
+            Style --> ${STYLE}
+            Depth --> ${DEPTH}
+            UniqueKeyword --> ${UNIQUE_KEYWORD}
             Topic --> ${RANDOM_TOPIC}
-            Seed  --> ${RANDOM_SEED}
+            Seed --> ${RANDOM_SEED}
             "
 
             mkdir -p "$key"
             file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
-            # Request Gemini content
-            response=$(curl -s -X POST \
+            # Gemini API Request
+            response=$(
+              curl -s -X POST \
               -H "Content-Type: application/json" \
               -H "x-goog-api-key: $GEMINI_API_KEY" \
               -d "$(jq -n --arg p "$prompt" '{contents:[{role:"user", parts:[{text:$p}]}]}')" \
-              "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
+              "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+            )
 
             output=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
 
-            # DEBUG: print raw response and parsed output to help trace unexpected prefixes
-            echo "DEBUG: raw response -> [$response]"
-            echo "DEBUG: parsed output -> [$output]"
-
-            # Write file
-            echo "# $key — $(date)" > "$file"
-            echo "**Topic -->** ${RANDOM_TOPIC}" >> "$file"
+            # Write Markdown file with IST timestamp
+            echo "# ${key} — $(date)" > "$file"
+            echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"
+            echo "**Style:** ${STYLE}" >> "$file"
+            echo "**Depth:** ${DEPTH}" >> "$file"
+            echo "**UniqueKeyword:** ${UNIQUE_KEYWORD}" >> "$file"
             echo "" >> "$file"
-            echo "$$output" >> "$file"
+            echo "$output" >> "$file"
 
             echo "Saved → $file"
           done
@@ -81,10 +123,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git fetch origin main
+          export TZ="Asia/Kolkata"
           git add .
-          git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M')" || echo "Nothing to commit"
+          git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M IST')" || echo "Nothing to commit"
           git pull origin main --rebase --strategy-option theirs
           git push origin main
