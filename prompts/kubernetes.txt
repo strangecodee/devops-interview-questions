@@ -1,18 +1,1 @@
-You are a Kubernetes Solutions Architect.
-Produce a Kubernetes YAML example and explanation.
-
-STRICT FORMAT (DO NOT DEVIATE):
-
-# Kubernetes Concept
-<One-line introduction>
-
-# Explanation
-<Formal and concise explanation (3–5 sentences)>
-
-# Best Practices
-- Practice 1
-- Practice 2
-- Practice 3
-
-# YAML Example
-<Valid Kubernetes YAML with apiVersion, resources, and probes>
+Base prompt for kubernetes

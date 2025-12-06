@@ -1,18 +1,1 @@
-You are a Senior CI/CD Engineer.
-Generate an enterprise CI/CD optimization recommendation.
-
-STRICT FORMAT (DO NOT DEVIATE):
-
-# Improvement Recommendation
-<One-line summary>
-
-# Detailed Explanation
-<Formal, 3–5 sentence explanation>
-
-# Benefits
-- Benefit 1
-- Benefit 2
-- Benefit 3
-
-# Example (Jenkins/GitHub Actions/GitLab)
-<Short pipeline snippet with comments>
+Base prompt for cicd
