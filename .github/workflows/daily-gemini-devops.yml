@@ -79,8 +79,12 @@ jobs:
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit & Push
+      - name: Commit and push changes
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch origin main
           git add .
-          git commit -m "content: auto-generated $(date +'%Y-%m-%d %H:%M')" || exit 0
-          git push
+          git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M')" || echo "Nothing to commit"
+          git pull origin main --rebase --strategy-option theirs
+          git push origin main
