@@ -68,7 +68,7 @@ jobs:
             echo "# $key — $(date)" > "$file"
             echo "**Topic -->** ${RANDOM_TOPIC}" >> "$file"
             echo "" >> "$file"
-            echo "$$output" >> "$file"
+            echo "$output" >> "$file"
 
             echo "Saved → $file"
           done
