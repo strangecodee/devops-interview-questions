@@ -2,7 +2,7 @@ name: Daily DevOps Content Generator (Gemini)
 
 on:
   schedule:
-    - cron: "* * * * *" # 0 0 * * * Runs every day at midnight UTC
+    - cron: "* * * * *" # Runs every minute
   workflow_dispatch:
 
 jobs:
@@ -18,13 +18,13 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y curl jq
 
-      - name: Generate unique daily content using Gemini 1.5
+      - name: Generate DevOps content using Gemini 2.0 Flash
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # -----------------------------
-          # Generate random topic
-          # -----------------------------
+          set -e
+
+          echo "---- Selecting Random Topic ----"
           RANDOM_TOPIC=$(printf "%s\n" \
             AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
             "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
@@ -32,48 +32,71 @@ jobs:
 
           RANDOM_SEED=$(date +%s)
 
-          # -----------------------------
-          # Prompt categories
-          # -----------------------------
+          echo "Random Topic: $RANDOM_TOPIC"
+          echo "Seed: $RANDOM_SEED"
+
           declare -A categories=(
             ["devops-interview"]="Generate a unique DevOps interview question + answer. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["docker"]="Generate an advanced Docker best practice with clear explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["kubernetes"]="Generate a unique Kubernetes YAML example + explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["cicd"]="Generate a unique CI/CD improvement tip. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["docker"]="Generate an advanced Docker best practice with explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["kubernetes"]="Generate a Kubernetes YAML example + explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["cicd"]="Generate a CI/CD optimization tip. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
           )
 
-          # -----------------------------
-          # Loop through categories
-          # -----------------------------
           for folder in "${!categories[@]}"; do
             mkdir -p "$folder"
-            file="$folder/$(date +'%Y-%m-%d').md"
+            file="$folder/$(date +'%Y-%m-%d_%H-%M').md"
             prompt="${categories[$folder]}"
 
-            # -----------------------------------------
-            # FIXED: Correct Google Gemini 1.5 API call
-            # -----------------------------------------
-            response=$(curl -s -X POST \
-              -H "Content-Type: application/json" \
-              -H "x-goog-api-key: $GEMINI_API_KEY" \
-              -d "{
-                \"contents\": [{
-                  \"parts\": [
-                    {\"text\": \"$prompt\"}
+            echo "---- Requesting Gemini content for: $folder ----"
+            echo "Prompt: $prompt"
+
+            # Retry mechanism: Try 3 times if Gemini returns empty
+            ATTEMPTS=0
+            OUTPUT=""
+
+            while [ $ATTEMPTS -lt 3 ] && [ -z "$OUTPUT" ]; do
+              ATTEMPTS=$((ATTEMPTS+1))
+              echo "Attempt $ATTEMPTS ..."
+
+              response=$(curl -s -X POST \
+                -H "Content-Type: application/json" \
+                -H "x-goog-api-key: $GEMINI_API_KEY" \
+                -d "{
+                  \"contents\": [
+                    {
+                      \"role\": \"user\",
+                      \"parts\": [{\"text\": \"$prompt\"}]
+                    }
                   ]
-                }]
-              }" \
-              "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent")
+                }" \
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
 
-            # Extract generated text
-            OUTPUT=$(echo "$response" | jq -r '.candidates[0].content.parts[0].text // "⚠️ Error: Gemini did not return any content"')
+              echo "RAW RESPONSE:"
+              echo "$response"
 
-            # Write file
-            echo "# $(basename "$folder") - $(date)" > "$file"
-            echo "" >> "$file"
-            echo "**Random Topic of the Day:** $RANDOM_TOPIC" >> "$file"
-            echo "" >> "$file"
-            echo "$OUTPUT" >> "$file"
+              OUTPUT=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
+
+              if [ -z "$OUTPUT" ]; then
+                echo "❌ Empty output from Gemini — retrying..."
+                sleep 1
+              fi
+            done
+
+            if [ -z "$OUTPUT" ]; then
+              OUTPUT="⚠️ Gemini returned empty content after 3 attempts."
+            fi
+
+            echo "---- Writing Output File ----"
+
+            {
+              echo "# $folder — $(date)"
+              echo ""
+              echo "**Random Topic of the Minute:** $RANDOM_TOPIC"
+              echo ""
+              echo "$OUTPUT"
+            } > "$file"
+
+            echo "Saved file: $file"
           done
 
       - name: Configure Git
@@ -82,19 +105,9 @@ jobs:
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit & Push (Semantic Commits)
+      - name: Commit & Push
         run: |
-          DATE=$(date +'%Y-%m-%d')
-
           git add .
 
-          git commit \
-            -m "feat(content): add daily DevOps content for $DATE" \
-            -m "feat(interview): new DevOps interview question" \
-            -m "feat(docker): new Docker best practice" \
-            -m "feat(kubernetes): new Kubernetes example" \
-            -m "feat(cicd): new CI/CD improvement tip" \
-            -m "ci(automation): auto-generated via Gemini 1.5 (seed: $RANDOM_SEED)" \
-            || exit 0
-
+          git commit -m "update: auto-generated content ($(date +'%Y-%m-%d %H:%M'))" || exit 0
           git push
