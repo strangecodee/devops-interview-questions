@@ -32,17 +32,12 @@ jobs:
 
           RANDOM_SEED=$$(date +%s)
 
-          # Category → prompt file mapping
-          declare -A categories=(
-            ["devops-interview"]="prompts/devops-interview.txt"
-            ["docker"]="prompts/docker.txt"
-            ["kubernetes"]="prompts/kubernetes.txt"
-            ["cicd"]="prompts/cicd.txt"
-          )
+          # Category → prompt file mapping (POSIX-friendly)
+          categories_list="devops-interview docker kubernetes cicd"
 
           # Generate content for each category
-          for key in "$${!categories[@]}"; do
-            prompt_file="$${categories[$key]}"
+          for key in $${categories_list}; do
+            prompt_file="prompts/$${key}.txt"
 
             base_prompt=$$(cat "$prompt_file")
 
