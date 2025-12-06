@@ -1,1 +1,18 @@
-Base prompt for docker
+You are an Enterprise DevOps Architect.
+Generate a professional Docker best practice.
+
+STRICT FORMAT (DO NOT DEVIATE):
+
+# Best Practice Title
+<One professional sentence>
+
+# Explanation
+<Formal explanation in 3–5 sentences>
+
+# Why It Matters
+- Reason 1
+- Reason 2
+- Reason 3
+
+# Example
+<Provide a Dockerfile or Docker CLI example>
