@@ -2,7 +2,7 @@ name: Daily DevOps Content Generator (Gemini)
 
 on:
   schedule:
-    - cron: "* * * * *" # Runs every minute
+    - cron: "* * * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,96 +18,69 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y curl jq
 
-      - name: Generate DevOps content using Gemini 2.0 Flash
+      - name: Generate DevOps content
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           set -e
 
-          echo "---- Selecting Random Topic ----"
-          RANDOM_TOPIC=$(printf "%s\n" \
+          # Pick random topic
+          RANDOM_TOPIC=$$(printf "%s\n" \
             AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
             "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
             "Docker Layers" "Chaos Engineering" | shuf -n 1)
 
-          RANDOM_SEED=$(date +%s)
+          RANDOM_SEED=$$(date +%s)
 
-          echo "Random Topic: $RANDOM_TOPIC"
-          echo "Seed: $RANDOM_SEED"
-
+          # Category → prompt file mapping
           declare -A categories=(
-            ["devops-interview"]="Generate a unique DevOps interview question + answer. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["docker"]="Generate an advanced Docker best practice with explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["kubernetes"]="Generate a Kubernetes YAML example + explanation. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
-            ["cicd"]="Generate a CI/CD optimization tip. Topic: $RANDOM_TOPIC. Seed: $RANDOM_SEED."
+            ["devops-interview"]="prompts/devops-interview.txt"
+            ["docker"]="prompts/docker.txt"
+            ["kubernetes"]="prompts/kubernetes.txt"
+            ["cicd"]="prompts/cicd.txt"
           )
 
-          for folder in "${!categories[@]}"; do
-            mkdir -p "$folder"
-            file="$folder/$(date +'%Y-%m-%d_%H-%M').md"
-            prompt="${categories[$folder]}"
+          # Generate content for each category
+          for key in "$${!categories[@]}"; do
+            prompt_file="$${categories[$key]}"
 
-            echo "---- Requesting Gemini content for: $folder ----"
-            echo "Prompt: $prompt"
+            base_prompt=$$(cat "$prompt_file")
 
-            # Retry mechanism: Try 3 times if Gemini returns empty
-            ATTEMPTS=0
-            OUTPUT=""
+            # Build final prompt (--> avoids YAML key parsing)
+            prompt="$${base_prompt}
+            Topic --> $${RANDOM_TOPIC}
+            Seed  --> $${RANDOM_SEED}
+            "
 
-            while [ $ATTEMPTS -lt 3 ] && [ -z "$OUTPUT" ]; do
-              ATTEMPTS=$((ATTEMPTS+1))
-              echo "Attempt $ATTEMPTS ..."
+            mkdir -p "$key"
+            file="$key/$$(date +'%Y-%m-%d_%H-%M').md"
 
-              response=$(curl -s -X POST \
-                -H "Content-Type: application/json" \
-                -H "x-goog-api-key: $GEMINI_API_KEY" \
-                -d "{
-                  \"contents\": [
-                    {
-                      \"role\": \"user\",
-                      \"parts\": [{\"text\": \"$prompt\"}]
-                    }
-                  ]
-                }" \
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
+            # Request Gemini content
+            response=$$(curl -s -X POST \
+              -H "Content-Type: application/json" \
+              -H "x-goog-api-key: $$GEMINI_API_KEY" \
+              -d "$$(jq -n --arg p "$prompt" '{contents:[{role:"user", parts:[{text:$p}]}]}')" \
+              "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent")
 
-              echo "RAW RESPONSE:"
-              echo "$response"
+            output=$$(echo "$$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
 
-              OUTPUT=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
+            # Write file
+            echo "# $key — $$(date)" > "$file"
+            echo "**Topic -->** $${RANDOM_TOPIC}" >> "$file"
+            echo "" >> "$file"
+            echo "$$output" >> "$file"
 
-              if [ -z "$OUTPUT" ]; then
-                echo "❌ Empty output from Gemini — retrying..."
-                sleep 1
-              fi
-            done
-
-            if [ -z "$OUTPUT" ]; then
-              OUTPUT="⚠️ Gemini returned empty content after 3 attempts."
-            fi
-
-            echo "---- Writing Output File ----"
-
-            {
-              echo "# $folder — $(date)"
-              echo ""
-              echo "**Random Topic of the Minute:** $RANDOM_TOPIC"
-              echo ""
-              echo "$OUTPUT"
-            } > "$file"
-
-            echo "Saved file: $file"
+            echo "Saved → $file"
           done
 
       - name: Configure Git
         run: |
-          git config --global user.name "DevOps Daily Bot"
+          git config --global user.name "DevOps Content Bot"
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       - name: Commit & Push
         run: |
           git add .
-
-          git commit -m "update: auto-generated content ($(date +'%Y-%m-%d %H:%M'))" || exit 0
+          git commit -m "content: auto-generated $$(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
