@@ -1,6 +1,6 @@
 # 📅 Weekly DevOps Summary
 
-Generated on: Sun Dec  7 01:15:24 UTC 2025
+Generated on: Sun Dec 14 01:15:41 UTC 2025
 
 ---
 
@@ -507,6 +507,86 @@ kubectl apply -f spectrum-service-hpa.yaml
 ```
 
 This ensures the "spectrum-service" automatically scales to meet demand, maintaining high availability and performance. Remember to configure resource requests and limits for each pod to ensure accurate CPU utilization metrics and prevent resource starvation.
+
+### File: devops-interview/2025-12-07_07-30.md
+
+# devops-interview — Sun Dec  7 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: devops-interview/2025-12-07_11-00.md
+
+# devops-interview — Sun Dec  7 11:00:08 IST 2025
+**Topic:** Helm
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** forge
+
+null
+
+### File: devops-interview/2025-12-08_07-22.md
+
+# devops-interview — Mon Dec  8 07:22:45 IST 2025
+**Topic:** Monitoring
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** nova
+
+null
+
+### File: devops-interview/2025-12-09_07-21.md
+
+# devops-interview — Tue Dec  9 07:21:55 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Medium detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: devops-interview/2025-12-10_07-23.md
+
+# devops-interview — Wed Dec 10 07:23:54 IST 2025
+**Topic:** Zero-Downtime Deploys
+**Style:** Verbose explanation
+**Depth:** Low detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: devops-interview/2025-12-11_07-25.md
+
+# devops-interview — Thu Dec 11 07:25:11 IST 2025
+**Topic:** Istio
+**Style:** Security-heavy
+**Depth:** Medium detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: devops-interview/2025-12-12_07-24.md
+
+# devops-interview — Fri Dec 12 07:24:27 IST 2025
+**Topic:** SRE
+**Style:** Short and concise
+**Depth:** Medium detail
+**UniqueKeyword:** titan
+
+null
+
+### File: devops-interview/2025-12-13_07-18.md
+
+# devops-interview — Sat Dec 13 07:18:17 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Low detail
+**UniqueKeyword:** atlas
+
+null
 
 ### File: devops-interview/README.md
 
@@ -1367,6 +1447,86 @@ ENTRYPOINT ["java", "-jar", "my-app.jar"]
 # ENTRYPOINT ["java", "-jar", "my-app.jar"]: Defines the command to run the application.  ENTRYPOINT sets the executable that will be run when the container starts.  This is combined with CMD (if present) to form the full command.  In this case, it runs the JAR file.
 
 ```
+
+### File: docker/2025-12-07_07-30.md
+
+# docker — Sun Dec  7 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: docker/2025-12-07_11-00.md
+
+# docker — Sun Dec  7 11:00:08 IST 2025
+**Topic:** Helm
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** forge
+
+null
+
+### File: docker/2025-12-08_07-22.md
+
+# docker — Mon Dec  8 07:22:45 IST 2025
+**Topic:** Monitoring
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** nova
+
+null
+
+### File: docker/2025-12-09_07-21.md
+
+# docker — Tue Dec  9 07:21:55 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Medium detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: docker/2025-12-10_07-23.md
+
+# docker — Wed Dec 10 07:23:54 IST 2025
+**Topic:** Zero-Downtime Deploys
+**Style:** Verbose explanation
+**Depth:** Low detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: docker/2025-12-11_07-25.md
+
+# docker — Thu Dec 11 07:25:11 IST 2025
+**Topic:** Istio
+**Style:** Security-heavy
+**Depth:** Medium detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: docker/2025-12-12_07-24.md
+
+# docker — Fri Dec 12 07:24:27 IST 2025
+**Topic:** SRE
+**Style:** Short and concise
+**Depth:** Medium detail
+**UniqueKeyword:** titan
+
+null
+
+### File: docker/2025-12-13_07-18.md
+
+# docker — Sat Dec 13 07:18:18 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Low detail
+**UniqueKeyword:** atlas
+
+null
 
 ### File: docker/README.md
 
@@ -2595,6 +2755,86 @@ data:
     }
 ```
 
+### File: kubernetes/2025-12-07_07-30.md
+
+# kubernetes — Sun Dec  7 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: kubernetes/2025-12-07_11-00.md
+
+# kubernetes — Sun Dec  7 11:00:08 IST 2025
+**Topic:** Helm
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** forge
+
+null
+
+### File: kubernetes/2025-12-08_07-22.md
+
+# kubernetes — Mon Dec  8 07:22:46 IST 2025
+**Topic:** Monitoring
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** nova
+
+null
+
+### File: kubernetes/2025-12-09_07-21.md
+
+# kubernetes — Tue Dec  9 07:21:55 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Medium detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: kubernetes/2025-12-10_07-23.md
+
+# kubernetes — Wed Dec 10 07:23:54 IST 2025
+**Topic:** Zero-Downtime Deploys
+**Style:** Verbose explanation
+**Depth:** Low detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: kubernetes/2025-12-11_07-25.md
+
+# kubernetes — Thu Dec 11 07:25:11 IST 2025
+**Topic:** Istio
+**Style:** Security-heavy
+**Depth:** Medium detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: kubernetes/2025-12-12_07-24.md
+
+# kubernetes — Fri Dec 12 07:24:27 IST 2025
+**Topic:** SRE
+**Style:** Short and concise
+**Depth:** Medium detail
+**UniqueKeyword:** titan
+
+null
+
+### File: kubernetes/2025-12-13_07-18.md
+
+# kubernetes — Sat Dec 13 07:18:18 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Low detail
+**UniqueKeyword:** atlas
+
+null
+
 ### File: kubernetes/README.md
 
 
@@ -3108,6 +3348,86 @@ jobs:
           fi
 #This example assumes use of self-hosted runners.  Needs actual runner creation and removal.
 ```
+
+### File: cicd/2025-12-07_07-30.md
+
+# cicd — Sun Dec  7 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: cicd/2025-12-07_11-00.md
+
+# cicd — Sun Dec  7 11:00:08 IST 2025
+**Topic:** Helm
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** forge
+
+null
+
+### File: cicd/2025-12-08_07-22.md
+
+# cicd — Mon Dec  8 07:22:46 IST 2025
+**Topic:** Monitoring
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** nova
+
+null
+
+### File: cicd/2025-12-09_07-21.md
+
+# cicd — Tue Dec  9 07:21:55 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Medium detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: cicd/2025-12-10_07-23.md
+
+# cicd — Wed Dec 10 07:23:54 IST 2025
+**Topic:** Zero-Downtime Deploys
+**Style:** Verbose explanation
+**Depth:** Low detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: cicd/2025-12-11_07-25.md
+
+# cicd — Thu Dec 11 07:25:12 IST 2025
+**Topic:** Istio
+**Style:** Security-heavy
+**Depth:** Medium detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: cicd/2025-12-12_07-24.md
+
+# cicd — Fri Dec 12 07:24:27 IST 2025
+**Topic:** SRE
+**Style:** Short and concise
+**Depth:** Medium detail
+**UniqueKeyword:** titan
+
+null
+
+### File: cicd/2025-12-13_07-18.md
+
+# cicd — Sat Dec 13 07:18:18 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Low detail
+**UniqueKeyword:** atlas
+
+null
 
 ### File: cicd/README.md
 
