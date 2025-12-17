@@ -1,6 +1,6 @@
 # 📊 DevOps Dashboard (Auto Updated)
 
-Last Updated: Tue Dec 16 02:27:27 UTC 2025
+Last Updated: Wed Dec 17 02:22:17 UTC 2025
 
 ## 🔹 devops-interview
 
@@ -22,6 +22,7 @@ Last Updated: Tue Dec 16 02:27:27 UTC 2025
 - [devops-interview/2025-12-15_07-28.md](devops-interview/2025-12-15_07-28.md)
 - [devops-interview/2025-12-06_14-44.md](devops-interview/2025-12-06_14-44.md)
 - [devops-interview/2025-12-06_14-53.md](devops-interview/2025-12-06_14-53.md)
+- [devops-interview/2025-12-17_07-20.md](devops-interview/2025-12-17_07-20.md)
 - [devops-interview/2025-12-06_15-57.md](devops-interview/2025-12-06_15-57.md)
 - [devops-interview/2025-12-11_07-25.md](devops-interview/2025-12-11_07-25.md)
 - [devops-interview/2025-12-06_15-09.md](devops-interview/2025-12-06_15-09.md)
@@ -55,6 +56,7 @@ Last Updated: Tue Dec 16 02:27:27 UTC 2025
 - [docker/2025-12-15_07-28.md](docker/2025-12-15_07-28.md)
 - [docker/2025-12-06_14-44.md](docker/2025-12-06_14-44.md)
 - [docker/2025-12-06_14-53.md](docker/2025-12-06_14-53.md)
+- [docker/2025-12-17_07-20.md](docker/2025-12-17_07-20.md)
 - [docker/2025-12-06_15-57.md](docker/2025-12-06_15-57.md)
 - [docker/2025-12-11_07-25.md](docker/2025-12-11_07-25.md)
 - [docker/2025-12-06_15-10.md](docker/2025-12-06_15-10.md)
@@ -89,6 +91,7 @@ Last Updated: Tue Dec 16 02:27:27 UTC 2025
 - [kubernetes/2025-12-08_07-22.md](kubernetes/2025-12-08_07-22.md)
 - [kubernetes/2025-12-15_07-28.md](kubernetes/2025-12-15_07-28.md)
 - [kubernetes/2025-12-06_16-04.md](kubernetes/2025-12-06_16-04.md)
+- [kubernetes/2025-12-17_07-20.md](kubernetes/2025-12-17_07-20.md)
 - [kubernetes/2025-12-06_15-57.md](kubernetes/2025-12-06_15-57.md)
 - [kubernetes/2025-12-11_07-25.md](kubernetes/2025-12-11_07-25.md)
 - [kubernetes/2025-12-06_15-09.md](kubernetes/2025-12-06_15-09.md)
@@ -123,6 +126,7 @@ Last Updated: Tue Dec 16 02:27:27 UTC 2025
 - [cicd/2025-12-06_16-04.md](cicd/2025-12-06_16-04.md)
 - [cicd/2025-12-06_14-44.md](cicd/2025-12-06_14-44.md)
 - [cicd/2025-12-06_14-53.md](cicd/2025-12-06_14-53.md)
+- [cicd/2025-12-17_07-20.md](cicd/2025-12-17_07-20.md)
 - [cicd/2025-12-06_15-57.md](cicd/2025-12-06_15-57.md)
 - [cicd/2025-12-11_07-25.md](cicd/2025-12-11_07-25.md)
 - [cicd/2025-12-06_15-10.md](cicd/2025-12-06_15-10.md)
