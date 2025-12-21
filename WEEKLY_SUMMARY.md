@@ -1,6 +1,6 @@
 # 📅 Weekly DevOps Summary
 
-Generated on: Sun Dec 14 01:15:41 UTC 2025
+Generated on: Sun Dec 21 01:15:07 UTC 2025
 
 ---
 
@@ -585,6 +585,86 @@ null
 **Style:** Short and concise
 **Depth:** Low detail
 **UniqueKeyword:** atlas
+
+null
+
+### File: devops-interview/2025-12-14_07-30.md
+
+# devops-interview — Sun Dec 14 07:30:53 IST 2025
+**Topic:** Load Balancing
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** eclipse
+
+null
+
+### File: devops-interview/2025-12-14_12-51.md
+
+# devops-interview — Sun Dec 14 12:51:40 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: devops-interview/2025-12-15_07-28.md
+
+# devops-interview — Mon Dec 15 07:28:14 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: devops-interview/2025-12-16_07-25.md
+
+# devops-interview — Tue Dec 16 07:25:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Security-heavy
+**Depth:** High detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: devops-interview/2025-12-17_07-20.md
+
+# devops-interview — Wed Dec 17 07:20:25 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Very high detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: devops-interview/2025-12-18_07-20.md
+
+# devops-interview — Thu Dec 18 07:20:47 IST 2025
+**Topic:** ArgoCD
+**Style:** SRE-focused
+**Depth:** High detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: devops-interview/2025-12-19_07-24.md
+
+# devops-interview — Fri Dec 19 07:24:06 IST 2025
+**Topic:** Monitoring
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** quantum
+
+null
+
+### File: devops-interview/2025-12-20_07-18.md
+
+# devops-interview — Sat Dec 20 07:18:08 IST 2025
+**Topic:** GitOps
+**Style:** Short and concise
+**Depth:** High detail
+**UniqueKeyword:** phoenix
 
 null
 
@@ -1525,6 +1605,86 @@ null
 **Style:** Short and concise
 **Depth:** Low detail
 **UniqueKeyword:** atlas
+
+null
+
+### File: docker/2025-12-14_07-30.md
+
+# docker — Sun Dec 14 07:30:53 IST 2025
+**Topic:** Load Balancing
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** eclipse
+
+null
+
+### File: docker/2025-12-14_12-51.md
+
+# docker — Sun Dec 14 12:51:40 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: docker/2025-12-15_07-28.md
+
+# docker — Mon Dec 15 07:28:14 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: docker/2025-12-16_07-25.md
+
+# docker — Tue Dec 16 07:25:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Security-heavy
+**Depth:** High detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: docker/2025-12-17_07-20.md
+
+# docker — Wed Dec 17 07:20:25 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Very high detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: docker/2025-12-18_07-20.md
+
+# docker — Thu Dec 18 07:20:47 IST 2025
+**Topic:** ArgoCD
+**Style:** SRE-focused
+**Depth:** High detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: docker/2025-12-19_07-24.md
+
+# docker — Fri Dec 19 07:24:07 IST 2025
+**Topic:** Monitoring
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** quantum
+
+null
+
+### File: docker/2025-12-20_07-18.md
+
+# docker — Sat Dec 20 07:18:09 IST 2025
+**Topic:** GitOps
+**Style:** Short and concise
+**Depth:** High detail
+**UniqueKeyword:** phoenix
 
 null
 
@@ -2835,6 +2995,86 @@ null
 
 null
 
+### File: kubernetes/2025-12-14_07-30.md
+
+# kubernetes — Sun Dec 14 07:30:53 IST 2025
+**Topic:** Load Balancing
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** eclipse
+
+null
+
+### File: kubernetes/2025-12-14_12-51.md
+
+# kubernetes — Sun Dec 14 12:51:40 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: kubernetes/2025-12-15_07-28.md
+
+# kubernetes — Mon Dec 15 07:28:14 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: kubernetes/2025-12-16_07-25.md
+
+# kubernetes — Tue Dec 16 07:25:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Security-heavy
+**Depth:** High detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: kubernetes/2025-12-17_07-20.md
+
+# kubernetes — Wed Dec 17 07:20:25 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Very high detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: kubernetes/2025-12-18_07-20.md
+
+# kubernetes — Thu Dec 18 07:20:47 IST 2025
+**Topic:** ArgoCD
+**Style:** SRE-focused
+**Depth:** High detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: kubernetes/2025-12-19_07-24.md
+
+# kubernetes — Fri Dec 19 07:24:07 IST 2025
+**Topic:** Monitoring
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** quantum
+
+null
+
+### File: kubernetes/2025-12-20_07-18.md
+
+# kubernetes — Sat Dec 20 07:18:09 IST 2025
+**Topic:** GitOps
+**Style:** Short and concise
+**Depth:** High detail
+**UniqueKeyword:** phoenix
+
+null
+
 ### File: kubernetes/README.md
 
 
@@ -3426,6 +3666,86 @@ null
 **Style:** Short and concise
 **Depth:** Low detail
 **UniqueKeyword:** atlas
+
+null
+
+### File: cicd/2025-12-14_07-30.md
+
+# cicd — Sun Dec 14 07:30:53 IST 2025
+**Topic:** Load Balancing
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** eclipse
+
+null
+
+### File: cicd/2025-12-14_12-51.md
+
+# cicd — Sun Dec 14 12:51:40 IST 2025
+**Topic:** Chaos Engineering
+**Style:** SRE-focused
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: cicd/2025-12-15_07-28.md
+
+# cicd — Mon Dec 15 07:28:14 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Medium detail
+**UniqueKeyword:** pulse
+
+null
+
+### File: cicd/2025-12-16_07-25.md
+
+# cicd — Tue Dec 16 07:25:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Security-heavy
+**Depth:** High detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: cicd/2025-12-17_07-20.md
+
+# cicd — Wed Dec 17 07:20:25 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Short and concise
+**Depth:** Very high detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: cicd/2025-12-18_07-20.md
+
+# cicd — Thu Dec 18 07:20:47 IST 2025
+**Topic:** ArgoCD
+**Style:** SRE-focused
+**Depth:** High detail
+**UniqueKeyword:** spectrum
+
+null
+
+### File: cicd/2025-12-19_07-24.md
+
+# cicd — Fri Dec 19 07:24:07 IST 2025
+**Topic:** Monitoring
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** quantum
+
+null
+
+### File: cicd/2025-12-20_07-18.md
+
+# cicd — Sat Dec 20 07:18:09 IST 2025
+**Topic:** GitOps
+**Style:** Short and concise
+**Depth:** High detail
+**UniqueKeyword:** phoenix
 
 null
 
