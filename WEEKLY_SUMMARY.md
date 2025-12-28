@@ -1,6 +1,6 @@
 # 📅 Weekly DevOps Summary
 
-Generated on: Sun Dec 21 01:15:07 UTC 2025
+Generated on: Sun Dec 28 01:18:56 UTC 2025
 
 ---
 
@@ -665,6 +665,76 @@ null
 **Style:** Short and concise
 **Depth:** High detail
 **UniqueKeyword:** phoenix
+
+null
+
+### File: devops-interview/2025-12-21_07-30.md
+
+# devops-interview — Sun Dec 21 07:30:46 IST 2025
+**Topic:** Docker Layers
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** nebula
+
+null
+
+### File: devops-interview/2025-12-22_07-30.md
+
+# devops-interview — Mon Dec 22 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: devops-interview/2025-12-23_07-25.md
+
+# devops-interview — Tue Dec 23 07:25:33 IST 2025
+**Topic:** GitOps
+**Style:** Enterprise tone
+**Depth:** High detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: devops-interview/2025-12-24_07-23.md
+
+# devops-interview — Wed Dec 24 07:23:36 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: devops-interview/2025-12-25_07-25.md
+
+# devops-interview — Thu Dec 25 07:25:46 IST 2025
+**Topic:** AWS
+**Style:** Performance-optimized
+**Depth:** Low detail
+**UniqueKeyword:** nova
+
+null
+
+### File: devops-interview/2025-12-26_07-24.md
+
+# devops-interview — Fri Dec 26 07:24:54 IST 2025
+**Topic:** Docker Layers
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: devops-interview/2025-12-27_07-22.md
+
+# devops-interview — Sat Dec 27 07:22:45 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Low detail
+**UniqueKeyword:** pulse
 
 null
 
@@ -1685,6 +1755,76 @@ null
 **Style:** Short and concise
 **Depth:** High detail
 **UniqueKeyword:** phoenix
+
+null
+
+### File: docker/2025-12-21_07-30.md
+
+# docker — Sun Dec 21 07:30:46 IST 2025
+**Topic:** Docker Layers
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** nebula
+
+null
+
+### File: docker/2025-12-22_07-30.md
+
+# docker — Mon Dec 22 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: docker/2025-12-23_07-25.md
+
+# docker — Tue Dec 23 07:25:33 IST 2025
+**Topic:** GitOps
+**Style:** Enterprise tone
+**Depth:** High detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: docker/2025-12-24_07-23.md
+
+# docker — Wed Dec 24 07:23:36 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: docker/2025-12-25_07-25.md
+
+# docker — Thu Dec 25 07:25:46 IST 2025
+**Topic:** AWS
+**Style:** Performance-optimized
+**Depth:** Low detail
+**UniqueKeyword:** nova
+
+null
+
+### File: docker/2025-12-26_07-24.md
+
+# docker — Fri Dec 26 07:24:54 IST 2025
+**Topic:** Docker Layers
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: docker/2025-12-27_07-22.md
+
+# docker — Sat Dec 27 07:22:45 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Low detail
+**UniqueKeyword:** pulse
 
 null
 
@@ -3075,6 +3215,76 @@ null
 
 null
 
+### File: kubernetes/2025-12-21_07-30.md
+
+# kubernetes — Sun Dec 21 07:30:47 IST 2025
+**Topic:** Docker Layers
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** nebula
+
+null
+
+### File: kubernetes/2025-12-22_07-30.md
+
+# kubernetes — Mon Dec 22 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: kubernetes/2025-12-23_07-25.md
+
+# kubernetes — Tue Dec 23 07:25:33 IST 2025
+**Topic:** GitOps
+**Style:** Enterprise tone
+**Depth:** High detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: kubernetes/2025-12-24_07-23.md
+
+# kubernetes — Wed Dec 24 07:23:36 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: kubernetes/2025-12-25_07-25.md
+
+# kubernetes — Thu Dec 25 07:25:46 IST 2025
+**Topic:** AWS
+**Style:** Performance-optimized
+**Depth:** Low detail
+**UniqueKeyword:** nova
+
+null
+
+### File: kubernetes/2025-12-26_07-24.md
+
+# kubernetes — Fri Dec 26 07:24:54 IST 2025
+**Topic:** Docker Layers
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: kubernetes/2025-12-27_07-22.md
+
+# kubernetes — Sat Dec 27 07:22:45 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Low detail
+**UniqueKeyword:** pulse
+
+null
+
 ### File: kubernetes/README.md
 
 
@@ -3746,6 +3956,76 @@ null
 **Style:** Short and concise
 **Depth:** High detail
 **UniqueKeyword:** phoenix
+
+null
+
+### File: cicd/2025-12-21_07-30.md
+
+# cicd — Sun Dec 21 07:30:47 IST 2025
+**Topic:** Docker Layers
+**Style:** Performance-optimized
+**Depth:** Medium detail
+**UniqueKeyword:** nebula
+
+null
+
+### File: cicd/2025-12-22_07-30.md
+
+# cicd — Mon Dec 22 07:30:09 IST 2025
+**Topic:** Terraform
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: cicd/2025-12-23_07-25.md
+
+# cicd — Tue Dec 23 07:25:33 IST 2025
+**Topic:** GitOps
+**Style:** Enterprise tone
+**Depth:** High detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: cicd/2025-12-24_07-23.md
+
+# cicd — Wed Dec 24 07:23:36 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Enterprise tone
+**Depth:** Very high detail
+**UniqueKeyword:** atlas
+
+null
+
+### File: cicd/2025-12-25_07-25.md
+
+# cicd — Thu Dec 25 07:25:46 IST 2025
+**Topic:** AWS
+**Style:** Performance-optimized
+**Depth:** Low detail
+**UniqueKeyword:** nova
+
+null
+
+### File: cicd/2025-12-26_07-24.md
+
+# cicd — Fri Dec 26 07:24:54 IST 2025
+**Topic:** Docker Layers
+**Style:** Enterprise tone
+**Depth:** Low detail
+**UniqueKeyword:** phoenix
+
+null
+
+### File: cicd/2025-12-27_07-22.md
+
+# cicd — Sat Dec 27 07:22:45 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Low detail
+**UniqueKeyword:** pulse
 
 null
 
