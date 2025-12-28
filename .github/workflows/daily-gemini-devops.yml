@@ -12,25 +12,30 @@ jobs:
       contents: write
 
     steps:
+      # ───────────────────────────────────────────────
+      # CHECKOUT
+      # ───────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # ───────────────────────────────────────────────
+      # DEPENDENCIES
+      # ───────────────────────────────────────────────
       - name: Install dependencies
         run: sudo apt-get install -y curl jq
 
+      # ───────────────────────────────────────────────
+      # CONTENT GENERATOR (OUTPUT FIXED)
+      # ───────────────────────────────────────────────
       - name: Generate DevOps content
+        id: generator
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           set -e
-
-          # Set IST timezone
           export TZ="Asia/Kolkata"
 
-          # ───────────────────────────────────────────────
-          # RANDOMIZATION ENGINE (guarantees uniqueness)
-          # ───────────────────────────────────────────────
-
+          # ───── RANDOMIZATION ENGINE ─────
           RANDOM_TOPIC=$(
             printf "%s\n" \
             AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
@@ -47,7 +52,6 @@ jobs:
             "Security-heavy" \
             "Performance-optimized" \
             "Beginner-friendly" \
-            "Verbose explanation" \
             "Short and concise" | shuf -n 1
           )
 
@@ -55,32 +59,27 @@ jobs:
             printf "%s\n" \
             "Low detail" \
             "Medium detail" \
-            "High detail" \
-            "Very high detail" | shuf -n 1
+            "High detail" | shuf -n 1
           )
 
           UNIQUE_KEYWORD=$(
             printf "%s\n" \
-            phoenix nebula quantum atlas vector eclipse forge pulse matrix sentinel velocity spectrum nova titan \
+            phoenix nebula quantum atlas vector eclipse forge pulse matrix sentinel \
             | shuf -n 1
           )
 
           echo "Topic: $RANDOM_TOPIC"
-          echo "Seed: $RANDOM_SEED"
           echo "Style: $STYLE"
           echo "Depth: $DEPTH"
           echo "Keyword: $UNIQUE_KEYWORD"
 
           categories_list="devops-interview docker kubernetes cicd"
 
-          # ───────────────────────────────────────────────
-          # GENERATE CONTENT FOR EACH CATEGORY
-          # ───────────────────────────────────────────────
+          # ───── GENERATE CONTENT ─────
           for key in ${categories_list}; do
             prompt_file="prompts/${key}.txt"
             base_prompt=$(cat "$prompt_file")
 
-            # Final prompt with unique modifiers
             prompt="${base_prompt}
             Style --> ${STYLE}
             Depth --> ${DEPTH}
@@ -92,18 +91,16 @@ jobs:
             mkdir -p "$key"
             file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
-            # Gemini API Request
             response=$(
               curl -s -X POST \
               -H "Content-Type: application/json" \
               -H "x-goog-api-key: $GEMINI_API_KEY" \
-              -d "$(jq -n --arg p "$prompt" '{contents:[{role:"user", parts:[{text:$p}]}]}')" \
+              -d "$(jq -n --arg p "$prompt" '{contents:[{role:"user",parts:[{text:$p}]}]}')" \
               "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
             )
 
             output=$(echo "$response" | jq -r 'try .candidates[0].content.parts[0].text catch ""')
 
-            # Write Markdown file with IST timestamp
             echo "# ${key} — $(date)" > "$file"
             echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"
             echo "**Style:** ${STYLE}" >> "$file"
@@ -115,12 +112,49 @@ jobs:
             echo "Saved → $file"
           done
 
+          # ───── EXPORT OUTPUTS (FIXES NULL) ─────
+          echo "topic=$RANDOM_TOPIC" >> $GITHUB_OUTPUT
+          echo "style=$STYLE" >> $GITHUB_OUTPUT
+          echo "depth=$DEPTH" >> $GITHUB_OUTPUT
+          echo "keyword=$UNIQUE_KEYWORD" >> $GITHUB_OUTPUT
+          echo "seed=$RANDOM_SEED" >> $GITHUB_OUTPUT
+
+      # ───────────────────────────────────────────────
+      # VERIFY OUTPUTS (NO MORE NULL)
+      # ───────────────────────────────────────────────
+      - name: Verify outputs
+        run: |
+          echo "Topic   → ${{ steps.generator.outputs.topic }}"
+          echo "Style   → ${{ steps.generator.outputs.style }}"
+          echo "Depth   → ${{ steps.generator.outputs.depth }}"
+          echo "Keyword → ${{ steps.generator.outputs.keyword }}"
+
+      # ───────────────────────────────────────────────
+      # JOB SUMMARY (CLEAN UI)
+      # ───────────────────────────────────────────────
+      - name: Workflow Summary
+        run: |
+          {
+            echo "## Daily DevOps Content Generator"
+            echo ""
+            echo "- **Topic:** ${{ steps.generator.outputs.topic }}"
+            echo "- **Style:** ${{ steps.generator.outputs.style }}"
+            echo "- **Depth:** ${{ steps.generator.outputs.depth }}"
+            echo "- **Keyword:** ${{ steps.generator.outputs.keyword }}"
+          } >> $GITHUB_STEP_SUMMARY
+
+      # ───────────────────────────────────────────────
+      # GIT CONFIG
+      # ───────────────────────────────────────────────
       - name: Configure Git
         run: |
           git config --global user.name "DevOps Content Bot"
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
+      # ───────────────────────────────────────────────
+      # COMMIT & PUSH
+      # ───────────────────────────────────────────────
       - name: Commit and push changes
         run: |
           export TZ="Asia/Kolkata"
