@@ -1,6 +1,6 @@
 # 📊 DevOps Dashboard (Auto Updated)
 
-Last Updated: Sun Dec 28 02:40:13 UTC 2025
+Last Updated: Mon Dec 29 02:38:26 UTC 2025
 
 ## 🔹 devops-interview
 
@@ -13,11 +13,13 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [devops-interview/2025-12-14_07-30.md](devops-interview/2025-12-14_07-30.md)
 - [devops-interview/2025-12-06_14-42.md](devops-interview/2025-12-06_14-42.md)
 - [devops-interview/2025-12-06_16-10.md](devops-interview/2025-12-06_16-10.md)
+- [devops-interview/2025-12-28_22-40.md](devops-interview/2025-12-28_22-40.md)
 - [devops-interview/2025-12-06_15-41.md](devops-interview/2025-12-06_15-41.md)
 - [devops-interview/2025-12-06_22-16.md](devops-interview/2025-12-06_22-16.md)
 - [devops-interview/2025-12-26_07-24.md](devops-interview/2025-12-26_07-24.md)
 - [devops-interview/2025-12-21_07-30.md](devops-interview/2025-12-21_07-30.md)
 - [devops-interview/2025-12-22_07-30.md](devops-interview/2025-12-22_07-30.md)
+- [devops-interview/2025-12-28_22-34.md](devops-interview/2025-12-28_22-34.md)
 - [devops-interview/2025-12-20_07-18.md](devops-interview/2025-12-20_07-18.md)
 - [devops-interview/2025-12-06_16-15.md](devops-interview/2025-12-06_16-15.md)
 - [devops-interview/README.md](devops-interview/README.md)
@@ -45,6 +47,7 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [devops-interview/2025-12-07_11-00.md](devops-interview/2025-12-07_11-00.md)
 - [devops-interview/2025-12-16_07-25.md](devops-interview/2025-12-16_07-25.md)
 - [devops-interview/2025-12-10_07-23.md](devops-interview/2025-12-10_07-23.md)
+- [devops-interview/2025-12-28_22-19.md](devops-interview/2025-12-28_22-19.md)
 - [devops-interview/2025-12-06_16-41.md](devops-interview/2025-12-06_16-41.md)
 
 ## 🔹 docker
@@ -58,11 +61,13 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [docker/2025-12-28_07-36.md](docker/2025-12-28_07-36.md)
 - [docker/2025-12-14_07-30.md](docker/2025-12-14_07-30.md)
 - [docker/2025-12-06_16-10.md](docker/2025-12-06_16-10.md)
+- [docker/2025-12-28_22-40.md](docker/2025-12-28_22-40.md)
 - [docker/2025-12-06_15-41.md](docker/2025-12-06_15-41.md)
 - [docker/2025-12-06_22-16.md](docker/2025-12-06_22-16.md)
 - [docker/2025-12-26_07-24.md](docker/2025-12-26_07-24.md)
 - [docker/2025-12-21_07-30.md](docker/2025-12-21_07-30.md)
 - [docker/2025-12-22_07-30.md](docker/2025-12-22_07-30.md)
+- [docker/2025-12-28_22-34.md](docker/2025-12-28_22-34.md)
 - [docker/2025-12-20_07-18.md](docker/2025-12-20_07-18.md)
 - [docker/2025-12-06_16-15.md](docker/2025-12-06_16-15.md)
 - [docker/README.md](docker/README.md)
@@ -90,6 +95,7 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [docker/2025-12-07_11-00.md](docker/2025-12-07_11-00.md)
 - [docker/2025-12-16_07-25.md](docker/2025-12-16_07-25.md)
 - [docker/2025-12-10_07-23.md](docker/2025-12-10_07-23.md)
+- [docker/2025-12-28_22-19.md](docker/2025-12-28_22-19.md)
 - [docker/2025-12-06_16-41.md](docker/2025-12-06_16-41.md)
 
 ## 🔹 kubernetes
@@ -104,6 +110,7 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [kubernetes/2025-12-14_07-30.md](kubernetes/2025-12-14_07-30.md)
 - [kubernetes/2025-12-06_14-42.md](kubernetes/2025-12-06_14-42.md)
 - [kubernetes/2025-12-06_16-10.md](kubernetes/2025-12-06_16-10.md)
+- [kubernetes/2025-12-28_22-40.md](kubernetes/2025-12-28_22-40.md)
 - [kubernetes/2025-12-06_14-52.md](kubernetes/2025-12-06_14-52.md)
 - [kubernetes/2025-12-06_22-17.md](kubernetes/2025-12-06_22-17.md)
 - [kubernetes/2025-12-06_15-41.md](kubernetes/2025-12-06_15-41.md)
@@ -111,6 +118,7 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [kubernetes/2025-12-26_07-24.md](kubernetes/2025-12-26_07-24.md)
 - [kubernetes/2025-12-21_07-30.md](kubernetes/2025-12-21_07-30.md)
 - [kubernetes/2025-12-22_07-30.md](kubernetes/2025-12-22_07-30.md)
+- [kubernetes/2025-12-28_22-34.md](kubernetes/2025-12-28_22-34.md)
 - [kubernetes/2025-12-20_07-18.md](kubernetes/2025-12-20_07-18.md)
 - [kubernetes/2025-12-06_16-15.md](kubernetes/2025-12-06_16-15.md)
 - [kubernetes/README.md](kubernetes/README.md)
@@ -136,6 +144,7 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [kubernetes/2025-12-07_11-00.md](kubernetes/2025-12-07_11-00.md)
 - [kubernetes/2025-12-16_07-25.md](kubernetes/2025-12-16_07-25.md)
 - [kubernetes/2025-12-10_07-23.md](kubernetes/2025-12-10_07-23.md)
+- [kubernetes/2025-12-28_22-19.md](kubernetes/2025-12-28_22-19.md)
 - [kubernetes/2025-12-06_16-41.md](kubernetes/2025-12-06_16-41.md)
 
 ## 🔹 cicd
@@ -149,12 +158,14 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [cicd/2025-12-14_07-30.md](cicd/2025-12-14_07-30.md)
 - [cicd/2025-12-06_14-42.md](cicd/2025-12-06_14-42.md)
 - [cicd/2025-12-06_16-10.md](cicd/2025-12-06_16-10.md)
+- [cicd/2025-12-28_22-40.md](cicd/2025-12-28_22-40.md)
 - [cicd/2025-12-06_22-17.md](cicd/2025-12-06_22-17.md)
 - [cicd/2025-12-06_15-41.md](cicd/2025-12-06_15-41.md)
 - [cicd/2025-12-06_22-16.md](cicd/2025-12-06_22-16.md)
 - [cicd/2025-12-26_07-24.md](cicd/2025-12-26_07-24.md)
 - [cicd/2025-12-21_07-30.md](cicd/2025-12-21_07-30.md)
 - [cicd/2025-12-22_07-30.md](cicd/2025-12-22_07-30.md)
+- [cicd/2025-12-28_22-34.md](cicd/2025-12-28_22-34.md)
 - [cicd/2025-12-20_07-18.md](cicd/2025-12-20_07-18.md)
 - [cicd/2025-12-06_16-15.md](cicd/2025-12-06_16-15.md)
 - [cicd/README.md](cicd/README.md)
@@ -182,5 +193,6 @@ Last Updated: Sun Dec 28 02:40:13 UTC 2025
 - [cicd/2025-12-07_11-00.md](cicd/2025-12-07_11-00.md)
 - [cicd/2025-12-16_07-25.md](cicd/2025-12-16_07-25.md)
 - [cicd/2025-12-10_07-23.md](cicd/2025-12-10_07-23.md)
+- [cicd/2025-12-28_22-19.md](cicd/2025-12-28_22-19.md)
 - [cicd/2025-12-06_16-41.md](cicd/2025-12-06_16-41.md)
 
