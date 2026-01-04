@@ -1,6 +1,6 @@
 # 📅 Weekly DevOps Summary
 
-Generated on: Sun Dec 28 01:18:56 UTC 2025
+Generated on: Sun Jan  4 01:19:41 UTC 2026
 
 ---
 
@@ -735,6 +735,46 @@ null
 **Style:** Beginner-friendly
 **Depth:** Low detail
 **UniqueKeyword:** pulse
+
+null
+
+### File: devops-interview/2025-12-28_07-36.md
+
+# devops-interview — Sun Dec 28 07:36:13 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: devops-interview/2025-12-28_22-19.md
+
+# devops-interview — Sun Dec 28 22:19:54 IST 2025
+**Topic:** Monitoring
+**Style:** Security-heavy
+**Depth:** Low detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: devops-interview/2025-12-28_22-34.md
+
+# devops-interview — Sun Dec 28 22:34:34 IST 2025
+**Topic:** Istio
+**Style:** SRE-focused
+**Depth:** Low detail
+**UniqueKeyword:** forge
+
+null
+
+### File: devops-interview/2025-12-28_22-40.md
+
+# devops-interview — Sun Dec 28 22:40:58 IST 2025
+**Topic:** SRE
+**Style:** Performance-optimized
+**Depth:** High detail
+**UniqueKeyword:** nebula
 
 null
 
@@ -1825,6 +1865,46 @@ null
 **Style:** Beginner-friendly
 **Depth:** Low detail
 **UniqueKeyword:** pulse
+
+null
+
+### File: docker/2025-12-28_07-36.md
+
+# docker — Sun Dec 28 07:36:13 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: docker/2025-12-28_22-19.md
+
+# docker — Sun Dec 28 22:19:54 IST 2025
+**Topic:** Monitoring
+**Style:** Security-heavy
+**Depth:** Low detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: docker/2025-12-28_22-34.md
+
+# docker — Sun Dec 28 22:34:34 IST 2025
+**Topic:** Istio
+**Style:** SRE-focused
+**Depth:** Low detail
+**UniqueKeyword:** forge
+
+null
+
+### File: docker/2025-12-28_22-40.md
+
+# docker — Sun Dec 28 22:40:58 IST 2025
+**Topic:** SRE
+**Style:** Performance-optimized
+**Depth:** High detail
+**UniqueKeyword:** nebula
 
 null
 
@@ -3285,6 +3365,46 @@ null
 
 null
 
+### File: kubernetes/2025-12-28_07-36.md
+
+# kubernetes — Sun Dec 28 07:36:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: kubernetes/2025-12-28_22-19.md
+
+# kubernetes — Sun Dec 28 22:19:54 IST 2025
+**Topic:** Monitoring
+**Style:** Security-heavy
+**Depth:** Low detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: kubernetes/2025-12-28_22-34.md
+
+# kubernetes — Sun Dec 28 22:34:34 IST 2025
+**Topic:** Istio
+**Style:** SRE-focused
+**Depth:** Low detail
+**UniqueKeyword:** forge
+
+null
+
+### File: kubernetes/2025-12-28_22-40.md
+
+# kubernetes — Sun Dec 28 22:40:58 IST 2025
+**Topic:** SRE
+**Style:** Performance-optimized
+**Depth:** High detail
+**UniqueKeyword:** nebula
+
+null
+
 ### File: kubernetes/README.md
 
 
@@ -4026,6 +4146,46 @@ null
 **Style:** Beginner-friendly
 **Depth:** Low detail
 **UniqueKeyword:** pulse
+
+null
+
+### File: cicd/2025-12-28_07-36.md
+
+# cicd — Sun Dec 28 07:36:14 IST 2025
+**Topic:** Kubernetes Security
+**Style:** Beginner-friendly
+**Depth:** Very high detail
+**UniqueKeyword:** velocity
+
+null
+
+### File: cicd/2025-12-28_22-19.md
+
+# cicd — Sun Dec 28 22:19:54 IST 2025
+**Topic:** Monitoring
+**Style:** Security-heavy
+**Depth:** Low detail
+**UniqueKeyword:** sentinel
+
+null
+
+### File: cicd/2025-12-28_22-34.md
+
+# cicd — Sun Dec 28 22:34:34 IST 2025
+**Topic:** Istio
+**Style:** SRE-focused
+**Depth:** Low detail
+**UniqueKeyword:** forge
+
+null
+
+### File: cicd/2025-12-28_22-40.md
+
+# cicd — Sun Dec 28 22:40:58 IST 2025
+**Topic:** SRE
+**Style:** Performance-optimized
+**Depth:** High detail
+**UniqueKeyword:** nebula
 
 null
 
