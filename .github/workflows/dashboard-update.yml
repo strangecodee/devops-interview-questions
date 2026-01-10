@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # Daily at 00:30 UTC
+    - cron: "30 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -17,12 +17,12 @@ jobs:
 
       - name: Update Dashboard File
         run: |
-          export LANG=en_US.UTF-8
-          export LC_ALL=en_US.UTF-8
+          export LANG=C.UTF-8
+          export LC_ALL=C.UTF-8
 
           DASH="DASHBOARD.md"
 
-          echo "# 🚀 DevOps Knowledge Hub Dashboard" > $DASH
+          echo '<h1><img src="https://cdn.simpleicons.org/linux" width="22"/> DevOps Knowledge Hub Dashboard</h1>' > $DASH
           echo "" >> $DASH
           echo "> *Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')*" >> $DASH
           echo "" >> $DASH
@@ -33,32 +33,32 @@ jobs:
           CICD=$(find cicd -type f -name "*.md" -not -name "README.md" | wc -l)
           TOTAL=$((INTERVIEW + DOCKER + K8S + CICD))
 
-          BAR_INTERVIEW=$(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '█')
-          BAR_DOCKER=$(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '█')
-          BAR_K8S=$(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '█')
-          BAR_CICD=$(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '█')
-          BAR_TOTAL=$(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '■')
+          BAR_INTERVIEW=$(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '#')
+          BAR_DOCKER=$(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '#')
+          BAR_K8S=$(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '#')
+          BAR_CICD=$(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '#')
+          BAR_TOTAL=$(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '=')
 
-          echo "## 📊 Repository Statistics" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/github" width="20"/> Repository Statistics</h2>' >> $DASH
           echo "" >> $DASH
           echo "| Category | Count | Progress |" >> $DASH
           echo "|----------|-------|----------|" >> $DASH
-          echo "| 🎯 DevOps Interview | $INTERVIEW | $BAR_INTERVIEW |" >> $DASH
-          echo "| 🐳 Docker | $DOCKER | $BAR_DOCKER |" >> $DASH
-          echo "| ☸️ Kubernetes | $K8S | $BAR_K8S |" >> $DASH
-          echo "| ⚙️ CI/CD | $CICD | $BAR_CICD |" >> $DASH
-          echo "| 📚 Total | $TOTAL | $BAR_TOTAL |" >> $DASH
+          echo "| DevOps Interview | $INTERVIEW | $BAR_INTERVIEW |" >> $DASH
+          echo "| Docker | $DOCKER | $BAR_DOCKER |" >> $DASH
+          echo "| Kubernetes | $K8S | $BAR_K8S |" >> $DASH
+          echo "| CI/CD | $CICD | $BAR_CICD |" >> $DASH
+          echo "| Total | $TOTAL | $BAR_TOTAL |" >> $DASH
           echo "" >> $DASH
 
-          echo "## 📚 Latest Content by Category" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>' >> $DASH
           echo "" >> $DASH
 
           format_category() {
             local dir=$1
-            local emoji=$2
+            local icon=$2
             local title=$3
             
-            echo "### $emoji $title" >> $DASH
+            echo "<h3><img src=\"$icon\" width=\"18\"/> $title</h3>" >> $DASH
             echo "" >> $DASH
             
             if [ -d "$dir" ]; then
@@ -67,7 +67,7 @@ jobs:
                 for file in $files; do
                   topic=$(head -n 10 "$file" | grep -E "(# |Topic:|\\*\\*Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/\\*\\*Topic: //; s/ —.*//')
                   [ -z "$topic" ] && topic="DevOps Content"
-                  echo "  📝 [${topic:0:60}${topic:60:+...}]($file)" >> $DASH
+                  echo "  - [${topic:0:60}${topic:60:+...}]($file)" >> $DASH
                 done
               else
                 echo "  *No content available*" >> $DASH
@@ -78,22 +78,22 @@ jobs:
             echo "" >> $DASH
           }
 
-          format_category "devops-interview" "🎯" "DevOps Interview Questions"
-          format_category "docker" "🐳" "Docker & Containerization"
-          format_category "kubernetes" "☸️" "Kubernetes Orchestration"
-          format_category "cicd" "⚙️" "CI/CD Pipelines"
+          format_category "devops-interview" "https://cdn.simpleicons.org/linux" "DevOps Interview Questions"
+          format_category "docker" "https://cdn.simpleicons.org/docker" "Docker & Containerization"
+          format_category "kubernetes" "https://cdn.simpleicons.org/kubernetes" "Kubernetes Orchestration"
+          format_category "cicd" "https://cdn.simpleicons.org/jenkins" "CI/CD Pipelines"
 
-          echo "## 🏆 Quick Stats" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/apachekafka" width="20"/> Quick Stats</h2>' >> $DASH
           echo "" >> $DASH
-          echo "- 📅 **Last Update**: $(date -u +'%B %d, %Y')" >> $DASH
-          echo "- 🚀 **Total Resources**: $TOTAL articles" >> $DASH
-          echo "- 🔄 **Daily Updates**: Automated content generation" >> $DASH
-          echo "- 💡 **Topics Covered**: DevOps best practices, Docker, Kubernetes, CI/CD" >> $DASH
+          echo "- Last Update: $(date -u +'%B %d, %Y')" >> $DASH
+          echo "- Total Resources: $TOTAL articles" >> $DASH
+          echo "- Daily Updates: Automated content generation" >> $DASH
+          echo "- Topics Covered: DevOps, Docker, Kubernetes, CI/CD" >> $DASH
           echo "" >> $DASH
 
           echo "---" >> $DASH
           echo "" >> $DASH
-          echo "*💡 Pro tip: Check back daily for fresh DevOps content and insights!*" >> $DASH
+          echo "*Pro tip: Check back daily for fresh DevOps content and insights!*" >> $DASH
 
       - name: Configure Git
         run: |
@@ -106,4 +106,4 @@ jobs:
           git add DASHBOARD.md
           git commit -m "docs(dashboard): auto-update dashboard" || echo "No changes to commit"
           git pull --rebase origin main
-          git push origin main || echo "Push failed, trying merge"
+          git push origin main
