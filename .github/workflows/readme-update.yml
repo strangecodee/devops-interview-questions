@@ -79,59 +79,6 @@ jobs:
           echo "<p align='center'><b>Last Updated:</b> $(date -u +'%A, %d %B %Y %H:%M:%S UTC')</p>" >> README.md
           echo "<p align='center'>Enterprise-Grade DevOps Knowledge Repository</p>" >> README.md
 
-        run: |
-          set -e
-
-          echo '<p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="90"/></p>' > README.md
-          echo '<h1 align="center">DevOps Interview & Practice Hub</h1>' >> README.md
-
-          echo '<p align="center">' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/linux" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/docker" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/kubernetes" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/jenkins" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/githubactions" width="40"/>' >> README.md
-          echo '</p>' >> README.md
-
-          echo '<p align="center">' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/amazonaws" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/googlecloud" width="40"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/microsoftazure" width="40"/>' >> README.md
-          echo '</p>' >> README.md
-
-          echo '---' >> README.md
-
-          echo '## About' >> README.md
-          echo 'Auto-maintained DevOps Interview & Production Readiness Hub covering Linux, Docker, Kubernetes, CI/CD, Cloud & SRE practices.' >> README.md
-
-          echo '## Architecture' >> README.md
-          echo '<p align="center"><img src="https://raw.githubusercontent.com/ashishrpandey/cloud-architecture-diagrams/master/devops/devops-ci-cd-architecture.svg" width="700"/></p>' >> README.md
-
-          echo '## Technology Stack' >> README.md
-          echo '- Linux & System Administration' >> README.md
-          echo '- Docker & Containerization' >> README.md
-          echo '- Kubernetes & Orchestration' >> README.md
-          echo '- Jenkins & GitHub Actions CI/CD' >> README.md
-          echo '- AWS, GCP, Azure Cloud Platforms' >> README.md
-
-          echo '## Knowledge Areas' >> README.md
-          echo '- [DevOps Interview](./devops-interview)' >> README.md
-          echo '- [Docker](./docker)' >> README.md
-          echo '- [Kubernetes](./kubernetes)' >> README.md
-          echo '- [CI/CD](./cicd)' >> README.md
-
-          echo '## Live Dashboard' >> README.md
-          echo '[View DevOps Knowledge Dashboard](./DASHBOARD.md)' >> README.md
-
-          echo '## Automation' >> README.md
-          echo '- Daily content generation' >> README.md
-          echo '- Automated README & Dashboard updates' >> README.md
-          echo '- CI/CD pipelines via GitHub Actions' >> README.md
-
-          echo '---' >> README.md
-          echo "<p align='center'><b>Last Updated:</b> $(date -u +'%A, %d %B %Y %H:%M:%S UTC')</p>" >> README.md
-          echo "<p align='center'>Enterprise-Grade DevOps Knowledge Repository</p>" >> README.md
-
       - name: Configure Git
         run: |
           git config --global user.name "README Bot"
