@@ -33,7 +33,7 @@ jobs:
       - name: Generate DevOps content
         id: generator
         env:
-          HF_API_KEY: ${{ secrets.HF_API_KEY }}
+          HF_TOKEN: ${{ secrets.HF_API_KEY }}
         run: |
           set -e
           export TZ="Asia/Kolkata"
@@ -107,57 +107,36 @@ jobs:
             mkdir -p "$key"
             file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
-            # Use Hugging Face Chat Completions API with a more reliable model
-            if [ -n "$HF_API_KEY" ]; then
-              # First, try with a simple text generation approach
+            # Use Hugging Face Chat Completions API with the exact format from memory
+            if [ -n "$HF_TOKEN" ]; then
               response=$(curl -s --fail \
                 -X POST \
-                -H "Authorization: Bearer $HF_API_KEY" \
+                -H "Authorization: Bearer $HF_TOKEN" \
                 -H "Content-Type: application/json" \
                 -d "{
-                  \"inputs\": \"$full_prompt\",
-                  \"parameters\": {
-                    \"max_new_tokens\": 600,
-                    \"temperature\": 0.7,
-                    \"top_p\": 0.9,
-                    \"return_full_text\": false
-                  }
-                }" \
-                "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2" \
-                || echo '{"error": "API response unavailable"}')
-              
-              # Check if the response contains an error
-              if echo "$response" | jq -e .error >/dev/null 2>&1; then
-                # If the chat model fails, try with a different model
-                response=$(curl -s --fail \
-                  -X POST \
-                  -H "Authorization: Bearer $HF_API_KEY" \
-                  -H "Content-Type: application/json" \
-                  -d "{
-                    \"inputs\": \"$full_prompt\",
-                    \"parameters\": {
-                      \"max_new_tokens\": 600,
-                      \"temperature\": 0.7,
-                      \"top_p\": 0.9,
-                      \"return_full_text\": false
+                  \"messages\": [
+                    {
+                      \"role\": \"user\",
+                      \"content\": \"$full_prompt\"
                     }
-                  }" \
-                  "https://api-inference.huggingface.co/models/google/flan-t5-xxl" \
-                  || echo '{"error": "API response unavailable"}')
-              fi
+                  ],
+                  \"model\": \"mistralai/Mistral-7B-Instruct-v0.2\",
+                  \"stream\": false,
+                  \"max_tokens\": 500,
+                  \"temperature\": 0.7
+                }" \
+                "https://router.huggingface.co/v1/chat/completions" \
+                || echo '{"error": "API response unavailable"}')
               
               # Extract the generated text from the response
               if echo "$response" | jq -e .error >/dev/null 2>&1; then
-                output="API response unavailable"
-                echo "Debug: Full API response: $response"
+                output="API response unavailable - $(echo "$response" | jq -r '.error // "Unknown error")')"
+                echo "Debug: API Error - $response"
               else
-                output=$(echo "$response" | jq -r '.[0].generated_text // "API response unavailable"')
-                if [ "$output" = "API response unavailable" ]; then
-                  output=$(echo "$response" | jq -r '.generated_text // "API response unavailable"')
-                fi
+                output=$(echo "$response" | jq -r '.choices[0].message.content // "API response unavailable"')
               fi
             else
-              output="API response unavailable - HF_API_KEY not set"
+              output="API response unavailable - HF_TOKEN not set"
             fi
 
             echo "# ${key} — $(date)" > "$file"

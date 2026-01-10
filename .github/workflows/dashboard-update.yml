@@ -25,20 +25,13 @@ jobs:
           echo "" >> $DASH
 
           for dir in devops-interview docker kubernetes cicd; do
-            echo "## 🔹 $dir" >> $DASH
+            echo "## 🔹 $(basename $dir)" >> $DASH
             echo "" >> $DASH
 
             if [ -d "$dir" ]; then
-              # Get all files in the directory, not just recent ones
-              if ls $dir/*.md 1> /dev/null 2>&1; then
-                find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -20 | while read file; do
-                  echo "- [$file]($file)" >> $DASH
-                done
-              else
-                echo "No content files found in $dir" >> $DASH
-              fi
-            else
-              echo "Directory $dir does not exist" >> $DASH
+              find "$dir" -type f -mtime -7 | while read file; do
+                echo "- [$file]($file)" >> $DASH
+              done
             fi
 
             echo "" >> $DASH
@@ -53,6 +46,5 @@ jobs:
       - name: Commit dashboard update
         run: |
           git add DASHBOARD.md
-          git commit -m "docs(dashboard): auto-update dashboard" || echo "No changes to commit"
-          git pull --rebase origin main
-          git push origin main || echo "Push failed, trying merge"
+          git commit -m "docs(dashboard): auto-update dashboard" || exit 0
+          git push
