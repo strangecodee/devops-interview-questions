@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="80"/></p>
 <h1><img src="https://cdn.simpleicons.org/linux" width="26"/> DevOps Knowledge Hub Dashboard</h1>
 
-> Updated on: Saturday, January 10, 2026 at 11:24:42 UTC
+> Updated on: Saturday, January 10, 2026 at 11:32:18 UTC
 
 
 
@@ -9,11 +9,11 @@
 
 | Category | Count | Progress |
 |----------|-------|----------|
-| DevOps Interview | 56 | [################..............] |
-| Docker | 56 | [################..............] |
-| Kubernetes | 57 | [#################.............] |
-| CI/CD | 57 | [#################.............] |
-| Total | 226 | [################..............] |
+| DevOps Interview | 56 | `[▓▓▓▓▓░░░░░] 56%` |
+| Docker | 56 | `[▓▓▓▓▓░░░░░] 56%` |
+| Kubernetes | 57 | `[▓▓▓▓▓░░░░░] 57%` |
+| CI/CD | 57 | `[▓▓▓▓▓░░░░░] 57%` |
+| Total | 226 | `[▓▓▓▓▓░░░░░] 56%` |
 
 <h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>
 
