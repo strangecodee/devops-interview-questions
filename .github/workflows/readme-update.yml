@@ -1,3 +1,20 @@
+name: Update README
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
       - name: Update README
         run: |
           set -e
@@ -39,3 +56,15 @@
 
             echo "*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*" >> README.md
           fi
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "README Bot"
+          git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Commit and push if changed
+        run: |
+          git add README.md
+          git commit -m "docs(readme): auto-update README content" || exit 0
+          git push
