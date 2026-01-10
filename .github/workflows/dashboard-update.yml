@@ -22,17 +22,20 @@ jobs:
 
           DASH="DASHBOARD.md"
 
-          make_bar() {
+          make_percent_bar() {
             local value=$1
             local max=$2
-            local width=30
-            local filled=$(( value * width / max ))
+            local width=10
+
+            local percent=$(( value * 100 / max ))
+            local filled=$(( percent * width / 100 ))
             local empty=$(( width - filled ))
 
-            printf "["
-            printf "%0.s#" $(seq 1 $filled)
-            printf "%0.s." $(seq 1 $empty)
-            printf "]"
+            bar=""
+            for i in $(seq 1 $filled); do bar="${bar}▓"; done
+            for i in $(seq 1 $empty); do bar="${bar}░"; done
+
+            printf "[%s] %d%%" "$bar" "$percent"
           }
 
           echo '<p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="80"/></p>' > $DASH
@@ -43,10 +46,10 @@ jobs:
 
           echo "```" >> $DASH
           echo "Booting DevOps Knowledge Hub..." >> $DASH
-          echo "[▓▓▓▓▓▓▓▓▓░░░░░░░░░░] 50%  Loading Docker Modules" >> $DASH
-          echo "[▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░] 70%  Starting Kubernetes Pods" >> $DASH
-          echo "[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░] 90%  Warming CI/CD Pipelines" >> $DASH
-          echo "[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100% Dashboard Ready" >> $DASH
+          echo "[▓▓▓▓▓▓▓░░░] 50%  Loading Docker Modules" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓░░] 70%  Starting Kubernetes Pods" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓░] 90%  Warming CI/CD Pipelines" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓▓] 100% Dashboard Ready" >> $DASH
           echo "```" >> $DASH
           echo "" >> $DASH
 
@@ -56,21 +59,21 @@ jobs:
           CICD=$(find cicd -type f -name "*.md" -not -name "README.md" | wc -l)
           TOTAL=$((INTERVIEW + DOCKER + K8S + CICD))
 
-          BAR_INTERVIEW=$(make_bar $INTERVIEW 100)
-          BAR_DOCKER=$(make_bar $DOCKER 100)
-          BAR_K8S=$(make_bar $K8S 100)
-          BAR_CICD=$(make_bar $CICD 100)
-          BAR_TOTAL=$(make_bar $TOTAL 400)
+          BAR_INTERVIEW=$(make_percent_bar $INTERVIEW 100)
+          BAR_DOCKER=$(make_percent_bar $DOCKER 100)
+          BAR_K8S=$(make_percent_bar $K8S 100)
+          BAR_CICD=$(make_percent_bar $CICD 100)
+          BAR_TOTAL=$(make_percent_bar $TOTAL 400)
 
           echo '<h2><img src="https://cdn.simpleicons.org/github" width="20"/> Repository Statistics</h2>' >> $DASH
           echo "" >> $DASH
           echo "| Category | Count | Progress |" >> $DASH
           echo "|----------|-------|----------|" >> $DASH
-          echo "| DevOps Interview | $INTERVIEW | $BAR_INTERVIEW |" >> $DASH
-          echo "| Docker | $DOCKER | $BAR_DOCKER |" >> $DASH
-          echo "| Kubernetes | $K8S | $BAR_K8S |" >> $DASH
-          echo "| CI/CD | $CICD | $BAR_CICD |" >> $DASH
-          echo "| Total | $TOTAL | $BAR_TOTAL |" >> $DASH
+          echo "| DevOps Interview | $INTERVIEW | \`$BAR_INTERVIEW\` |" >> $DASH
+          echo "| Docker | $DOCKER | \`$BAR_DOCKER\` |" >> $DASH
+          echo "| Kubernetes | $K8S | \`$BAR_K8S\` |" >> $DASH
+          echo "| CI/CD | $CICD | \`$BAR_CICD\` |" >> $DASH
+          echo "| Total | $TOTAL | \`$BAR_TOTAL\` |" >> $DASH
           echo "" >> $DASH
 
           echo '<h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>' >> $DASH
