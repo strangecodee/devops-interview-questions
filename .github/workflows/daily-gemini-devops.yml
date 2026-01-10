@@ -39,37 +39,11 @@ jobs:
           export TZ="Asia/Kolkata"
 
           # ───── RANDOMIZATION ENGINE ─────
-          RANDOM_TOPIC=$(
-            printf "%s\n" \
-            AWS Terraform Helm GitOps ArgoCD Istio SRE Scalability Monitoring \
-            "Load Balancing" "Zero-Downtime Deploys" "Kubernetes Security" \
-            "Docker Layers" "Chaos Engineering" | shuf -n 1
-          )
-
+          RANDOM_TOPIC=$(shuf -n 1 <<< $'AWS\nTerraform\nHelm\nGitOps\nArgoCD\nIstio\nSRE\nScalability\nMonitoring\nLoad Balancing\nZero-Downtime Deploys\nKubernetes Security\nDocker Layers\nChaos Engineering')
           RANDOM_SEED=$(date +%s)
-
-          STYLE=$(
-            printf "%s\n" \
-            "Enterprise tone" \
-            "SRE-focused" \
-            "Security-heavy" \
-            "Performance-optimized" \
-            "Beginner-friendly" \
-            "Short and concise" | shuf -n 1
-          )
-
-          DEPTH=$(
-            printf "%s\n" \
-            "Low detail" \
-            "Medium detail" \
-            "High detail" | shuf -n 1
-          )
-
-          UNIQUE_KEYWORD=$(
-            printf "%s\n" \
-            phoenix nebula quantum atlas vector eclipse forge pulse matrix sentinel \
-            | shuf -n 1
-          )
+          STYLE=$(shuf -n 1 <<< $'Enterprise tone\nSRE-focused\nSecurity-heavy\nPerformance-optimized\nBeginner-friendly\nShort and concise')
+          DEPTH=$(shuf -n 1 <<< $'Low detail\nMedium detail\nHigh detail')
+          UNIQUE_KEYWORD=$(shuf -n 1 <<< $'phoenix\nnebula\nquantum\natlas\nvector\neclipse\nforge\npulse\nmatrix\nsentinel')
 
           # ✅ EXPORT OUTPUTS IMMEDIATELY (CRITICAL)
           {
@@ -115,25 +89,30 @@ jobs:
             else
               echo "Making API call to Hugging Face..."
               
-              # Try with the Hugging Face Chat Completions API with longer timeout
+              # Create a temporary file containing the properly escaped JSON
+              cat > /tmp/request_payload.json <<EOF
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": $(printf '%s' "$full_prompt" | jq -Rs .)
+    }
+  ],
+  "model": "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+  "stream": false,
+  "max_tokens": 500,
+  "temperature": 0.7
+}
+EOF
+
+              # Try with the Hugging Face Chat Completions API using the properly formatted JSON file
               response=$(timeout 60 curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
                 --connect-timeout 30 \
                 --max-time 60 \
                 -X POST \
                 -H "Authorization: Bearer $HF_TOKEN" \
                 -H "Content-Type: application/json" \
-                -d "{
-                  \"messages\": [
-                    {
-                      \"role\": \"user\",
-                      \"content\": \"$full_prompt\"
-                    }
-                  ],
-                  \"model\": \"mistralai/Mistral-7B-Instruct-v0.2:featherless-ai\",
-                  \"stream\": false,
-                  \"max_tokens\": 500,
-                  \"temperature\": 0.7
-                }" \
+                -d @/tmp/request_payload.json \
                 "https://router.huggingface.co/v1/chat/completions")
               
               # Check if curl timed out
