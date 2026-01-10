@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "* * * * *"  # Change back to daily at 00:30
+    - cron: "* * * * *"  # Daily at 00:30
   workflow_dispatch:
 
 jobs:
@@ -91,72 +91,6 @@ jobs:
           echo "" >> $DASH
           echo "*💡 Pro tip: Check back daily for fresh DevOps content and insights!*" >> $DASH
 
-      - name: Update Main README
-        run: |
-          # Create/update the main README with current timestamp
-          cat > README.md << 'EOF'
-# DevOps Interview Questions Repository
-
-Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
-
-## 🏆 Current Stats
-
-![Updated](https://img.shields.io/badge/Updated-$(date +'%Y-%m-%d')-brightgreen)
-![Interview](https://img.shields.io/badge/Interview_0-purple)
-![Docker](https://img.shields.io/badge/Docker_0-blue)
-![Kubernetes](https://img.shields.io/badge/K8s_0-green)
-![CI/CD](https://img.shields.io/badge/CICD_0-orange)
-
-*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*
-
-## 📚 Content Categories
-
-This repository covers four main DevOps areas with regularly updated content:
-
-### 1. DevOps Interview Questions
-- Comprehensive interview questions and answers
-- Real-world scenarios and best practices
-- [Browse All Interview Content](./devops-interview/)
-
-### 2. Docker
-- Containerization techniques
-- Docker best practices
-- Optimization strategies
-- [Browse All Docker Content](./docker/)
-
-### 3. Kubernetes
-- Orchestration concepts
-- Cluster management
-- Advanced deployment strategies
-- [Browse All Kubernetes Content](./kubernetes/)
-
-### 4. CI/CD
-- Continuous Integration/Continuous Deployment
-- Pipeline optimization
-- Automation strategies
-- [Browse All CI/CD Content](./cicd/)
-
-## 📊 Latest Activity
-
-Check out our [Dashboard](./DASHBOARD.md) for the most recently generated content across all categories.
-
-## 🤖 Auto-Generated Content
-
-New content is generated daily at 00:00 UTC with random topics covering various DevOps domains. Each piece of content includes:
-- Relevant DevOps topics
-- Different writing styles (Enterprise, SRE-focused, Security-heavy, etc.)
-- Varying detail levels (Low, Medium, High)
-- Unique keywords for easy tracking
-
-## 📈 Weekly Summary
-
-For a comprehensive overview of weekly content, check our [Weekly Summary](./WEEKLY_SUMMARY.md).
-
----
-
-*This repository is automatically maintained. New content is added daily to help you stay current with DevOps trends and best practices.*
-EOF
-
       - name: Configure Git
         run: |
           git config --global user.name "Dashboard Bot"
@@ -165,7 +99,7 @@ EOF
 
       - name: Commit dashboard update
         run: |
-          git add DASHBOARD.md README.md
-          git commit -m "docs(dashboard): auto-update dashboard and README timestamp" || echo "No changes to commit"
+          git add DASHBOARD.md
+          git commit -m "docs(dashboard): auto-update dashboard" || echo "No changes to commit"
           git pull --rebase origin main
           git push origin main || echo "Push failed, trying merge"
