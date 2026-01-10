@@ -84,6 +84,7 @@ jobs:
           echo "Style: $STYLE"
           echo "Depth: $DEPTH"
           echo "Keyword: $UNIQUE_KEYWORD"
+          echo "HF_TOKEN length: ${#HF_TOKEN}"
 
           categories_list="devops-interview docker kubernetes cicd"
 
@@ -107,9 +108,15 @@ jobs:
             mkdir -p "$key"
             file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
-            # Use Hugging Face Chat Completions API with the exact format from memory
-            if [ -n "$HF_TOKEN" ]; then
-              response=$(curl -s --fail \
+            # Check if API key is set
+            if [ -z "$HF_TOKEN" ]; then
+              echo "ERROR: HF_TOKEN is not set"
+              output="API response unavailable - HF_TOKEN not set"
+            else
+              echo "Making API call to Hugging Face..."
+              
+              # Try with the Hugging Face Chat Completions API
+              response=$(curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
                 -X POST \
                 -H "Authorization: Bearer $HF_TOKEN" \
                 -H "Content-Type: application/json" \
@@ -125,19 +132,89 @@ jobs:
                   \"max_tokens\": 500,
                   \"temperature\": 0.7
                 }" \
-                "https://router.huggingface.co/v1/chat/completions" \
-                || echo '{"error": "API response unavailable"}')
+                "https://router.huggingface.co/v1/chat/completions")
               
-              # Extract the generated text from the response
-              if echo "$response" | jq -e .error >/dev/null 2>&1; then
-                output="API response unavailable - $(echo "$response" | jq -r '.error // "Unknown error")')"
-                echo "Debug: API Error - $response"
+              http_status=$(echo "$response" | tail -n 1 | cut -d':' -f2)
+              actual_response=$(echo "$response" | sed '$d')  # Remove last line (status code)
+              
+              echo "HTTP Status: $http_status"
+              echo "Response preview: $(echo "$actual_response" | head -c 200)"
+              
+              if [ "$http_status" != "200" ]; then
+                output="API response unavailable - HTTP $http_status"
+                echo "Error response: $actual_response"
               else
-                output=$(echo "$response" | jq -r '.choices[0].message.content // "API response unavailable"')
+                output=$(echo "$actual_response" | jq -r '.choices[0].message.content // "API response unavailable"')
+                
+                # If we still got an error in the response body
+                if [ "$output" = "API response unavailable" ]; then
+                  output=$(echo "$actual_response" | jq -r '.error.message // "API response unavailable"')
+                  if [ "$output" != "API response unavailable" ]; then
+                    output="API response unavailable - $output"
+                  fi
+                fi
               fi
-            else
-              output="API response unavailable - HF_TOKEN not set"
-name: Daily DevOps Content Generator (HuggingFace)
+            fi
+
+            echo "# ${key} — $(date)" > "$file"
+            echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"
+            echo "**Style:** ${STYLE}" >> "$file"
+            echo "**Depth:** ${DEPTH}" >> "$file"
+            echo "**UniqueKeyword:** ${UNIQUE_KEYWORD}" >> "$file"
+            echo "" >> "$file"
+            echo "$output" >> "$file"
+          done
+        
+
+      # ───────────────────────────────────────────────
+      # VERIFY OUTPUTS (NO MORE NULL)
+      # ───────────────────────────────────────────────
+      - name: Verify outputs
+        run: |
+          echo "Topic   → ${{ steps.generator.outputs.topic }}"
+          echo "Style   → ${{ steps.generator.outputs.style }}"
+          echo "Depth   → ${{ steps.generator.outputs.depth }}"
+          echo "Keyword → ${{ steps.generator.outputs.keyword }}"
+
+      # ───────────────────────────────────────────────
+      # JOB SUMMARY (CLEAN UI)
+      # ───────────────────────────────────────────────
+      - name: Workflow Summary
+        run: |
+          {
+            echo "## Daily DevOps Content Generator"
+            echo ""
+            echo "- **Topic:** ${{ steps.generator.outputs.topic }}"
+            echo "- **Style:** ${{ steps.generator.outputs.style }}"
+            echo "- **Depth:** ${{ steps.generator.outputs.depth }}"
+            echo "- **Keyword:** ${{ steps.generator.outputs.keyword }}"
+          } >> $GITHUB_STEP_SUMMARY
+
+      # ───────────────────────────────────────────────
+      # GIT CONFIG
+      # ───────────────────────────────────────────────
+      - name: Configure Git
+        run: |
+          git config --global user.name "DevOps Content Bot"
+          git config --global user.email "bot@github.com"
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      # ───────────────────────────────────────────────
+      # COMMIT & PUSH
+      # ───────────────────────────────────────────────
+      - name: Commit and push changes
+        run: |
+          export TZ="Asia/Kolkata"
+          git fetch origin
+          git checkout main
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M IST')"
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes to commit"
+          finame: Daily DevOps Content Generator (HuggingFace)
 
 on:
   schedule:
@@ -223,6 +300,7 @@ jobs:
           echo "Style: $STYLE"
           echo "Depth: $DEPTH"
           echo "Keyword: $UNIQUE_KEYWORD"
+          echo "HF_TOKEN length: ${#HF_TOKEN}"
 
           categories_list="devops-interview docker kubernetes cicd"
 
@@ -246,9 +324,15 @@ jobs:
             mkdir -p "$key"
             file="$key/$(date +'%Y-%m-%d_%H-%M').md"
 
-            # Use Hugging Face Chat Completions API with the exact format from memory
-            if [ -n "$HF_TOKEN" ]; then
-              response=$(curl -s --fail \
+            # Check if API key is set
+            if [ -z "$HF_TOKEN" ]; then
+              echo "ERROR: HF_TOKEN is not set"
+              output="API response unavailable - HF_TOKEN not set"
+            else
+              echo "Making API call to Hugging Face..."
+              
+              # Try with the Hugging Face Chat Completions API
+              response=$(curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
                 -X POST \
                 -H "Authorization: Bearer $HF_TOKEN" \
                 -H "Content-Type: application/json" \
@@ -264,79 +348,29 @@ jobs:
                   \"max_tokens\": 500,
                   \"temperature\": 0.7
                 }" \
-                "https://router.huggingface.co/v1/chat/completions" \
-                || echo '{"error": "API response unavailable"}')
+                "https://router.huggingface.co/v1/chat/completions")
               
-              # Extract the generated text from the response
-              if echo "$response" | jq -e .error >/dev/null 2>&1; then
-                output="API response unavailable - $(echo "$response" | jq -r '.error // "Unknown error")')"
-                echo "Debug: API Error - $response"
+              http_status=$(echo "$response" | tail -n 1 | cut -d':' -f2)
+              actual_response=$(echo "$response" | sed '$d')  # Remove last line (status code)
+              
+              echo "HTTP Status: $http_status"
+              echo "Response preview: $(echo "$actual_response" | head -c 200)"
+              
+              if [ "$http_status" != "200" ]; then
+                output="API response unavailable - HTTP $http_status"
+                echo "Error response: $actual_response"
               else
-                output=$(echo "$response" | jq -r '.choices[0].message.content // "API response unavailable"')
+                output=$(echo "$actual_response" | jq -r '.choices[0].message.content // "API response unavailable"')
+                
+                # If we still got an error in the response body
+                if [ "$output" = "API response unavailable" ]; then
+                  output=$(echo "$actual_response" | jq -r '.error.message // "API response unavailable"')
+                  if [ "$output" != "API response unavailable" ]; then
+                    output="API response unavailable - $output"
+                  fi
+                fi
               fi
-            else
-              output="API response unavailable - HF_TOKEN not set"
             fi
-
-            echo "# ${key} — $(date)" > "$file"
-            echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"
-            echo "**Style:** ${STYLE}" >> "$file"
-            echo "**Depth:** ${DEPTH}" >> "$file"
-            echo "**UniqueKeyword:** ${UNIQUE_KEYWORD}" >> "$file"
-            echo "" >> "$file"
-            echo "$output" >> "$file"
-          done
-        
-
-      # ───────────────────────────────────────────────
-      # VERIFY OUTPUTS (NO MORE NULL)
-      # ───────────────────────────────────────────────
-      - name: Verify outputs
-        run: |
-          echo "Topic   → ${{ steps.generator.outputs.topic }}"
-          echo "Style   → ${{ steps.generator.outputs.style }}"
-          echo "Depth   → ${{ steps.generator.outputs.depth }}"
-          echo "Keyword → ${{ steps.generator.outputs.keyword }}"
-
-      # ───────────────────────────────────────────────
-      # JOB SUMMARY (CLEAN UI)
-      # ───────────────────────────────────────────────
-      - name: Workflow Summary
-        run: |
-          {
-            echo "## Daily DevOps Content Generator"
-            echo ""
-            echo "- **Topic:** ${{ steps.generator.outputs.topic }}"
-            echo "- **Style:** ${{ steps.generator.outputs.style }}"
-            echo "- **Depth:** ${{ steps.generator.outputs.depth }}"
-            echo "- **Keyword:** ${{ steps.generator.outputs.keyword }}"
-          } >> $GITHUB_STEP_SUMMARY
-
-      # ───────────────────────────────────────────────
-      # GIT CONFIG
-      # ───────────────────────────────────────────────
-      - name: Configure Git
-        run: |
-          git config --global user.name "DevOps Content Bot"
-          git config --global user.email "bot@github.com"
-          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-
-      # ───────────────────────────────────────────────
-      # COMMIT & PUSH
-      # ───────────────────────────────────────────────
-      - name: Commit and push changes
-        run: |
-          export TZ="Asia/Kolkata"
-          git fetch origin
-          git checkout main
-          git add .
-          if ! git diff --cached --quiet; then
-            git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M IST')"
-            git pull --rebase origin main
-            git push origin main
-          else
-            echo "No changes to commit"
-          fi            fi
 
             echo "# ${key} — $(date)" > "$file"
             echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"

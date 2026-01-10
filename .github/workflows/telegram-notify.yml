@@ -3,7 +3,7 @@ name: Telegram Notifications
 on:
   workflow_run:
     workflows:
-      - "Daily DevOps Content Generator (Gemini)"
+      - "Daily DevOps Content Generator (HuggingFace)"
       - "Weekly DevOps Summary (Gemini)"
       - "Update Dashboard"
       - "Generate Repo Badges"
