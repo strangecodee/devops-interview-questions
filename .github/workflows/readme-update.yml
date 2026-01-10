@@ -15,63 +15,70 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Update README Timestamp
-        shell: bash
+      - name: Update README
         run: |
           set -e
 
           if [ -f "README.md" ]; then
             sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
           else
-            cat > README.md <<'EOF'
-# DevOps Interview Questions Repository
+            echo '<h1 align="center">DevOps Interview Questions Repository</h1>' > README.md
+            echo '<p align="center">' >> README.md
+            echo '<img src="https://cdn.simpleicons.org/linux" width="40"/>' >> README.md
+            echo '<img src="https://cdn.simpleicons.org/docker" width="40"/>' >> README.md
+            echo '<img src="https://cdn.simpleicons.org/kubernetes" width="40"/>' >> README.md
+            echo '<img src="https://cdn.simpleicons.org/jenkins" width="40"/>' >> README.md
+            echo '</p>' >> README.md
+            echo "" >> README.md
 
-Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
+            echo "<h2><img src='https://cdn.simpleicons.org/aboutdotme' width='20'/> About</h2>" >> README.md
+            echo "This repository contains auto-generated DevOps interview questions, notes, and real-world scenarios for Cloud, Docker, Kubernetes, and CI/CD." >> README.md
+            echo "" >> README.md
 
-## 🏆 Current Stats
+            echo "<h2><img src='https://cdn.simpleicons.org/github' width='20'/> Current Stats</h2>" >> README.md
+            echo "![Updated](https://img.shields.io/badge/Updated-static-brightgreen)" >> README.md
+            echo "![Docker](https://img.shields.io/badge/Docker-Active-blue?logo=docker)" >> README.md
+            echo "![Kubernetes](https://img.shields.io/badge/Kubernetes-Active-blue?logo=kubernetes)" >> README.md
+            echo "![CI/CD](https://img.shields.io/badge/CI/CD-Jenkins-orange?logo=jenkins)" >> README.md
+            echo "" >> README.md
 
-![Updated](https://img.shields.io/badge/Updated-static-brightgreen)
-![Interview](https://img.shields.io/badge/Interview-0-purple)
-![Docker](https://img.shields.io/badge/Docker-0-blue)
-![Kubernetes](https://img.shields.io/badge/K8s-0-green)
-![CI/CD](https://img.shields.io/badge/CICD-0-orange)
+            echo "*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*" >> README.md
+            echo "" >> README.md
 
-*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*
+            echo "<h2><img src='https://cdn.simpleicons.org/bookstack' width='20'/> Content Categories</h2>" >> README.md
 
-## 📚 Content Categories
+            echo "<h3><img src='https://cdn.simpleicons.org/linux' width='18'/> DevOps Interview Questions</h3>" >> README.md
+            echo "- Linux, Networking, Git, Cloud, SRE topics" >> README.md
+            echo "- [Browse](./devops-interview/)" >> README.md
+            echo "" >> README.md
 
-### 1. DevOps Interview Questions
-- Comprehensive interview questions and answers
-- Real-world scenarios and best practices
-- [Browse All Interview Content](./devops-interview/)
+            echo "<h3><img src='https://cdn.simpleicons.org/docker' width='18'/> Docker</h3>" >> README.md
+            echo "- Images, Containers, Compose, Best Practices" >> README.md
+            echo "- [Browse](./docker/)" >> README.md
+            echo "" >> README.md
 
-### 2. Docker
-- Containerization techniques
-- Docker best practices
-- Optimization strategies
-- [Browse All Docker Content](./docker/)
+            echo "<h3><img src='https://cdn.simpleicons.org/kubernetes' width='18'/> Kubernetes</h3>" >> README.md
+            echo "- Pods, Services, Ingress, Helm, Troubleshooting" >> README.md
+            echo "- [Browse](./kubernetes/)" >> README.md
+            echo "" >> README.md
 
-### 3. Kubernetes
-- Orchestration concepts
-- Cluster management
-- Advanced deployment strategies
-- [Browse All Kubernetes Content](./kubernetes/)
+            echo "<h3><img src='https://cdn.simpleicons.org/jenkins' width='18'/> CI/CD</h3>" >> README.md
+            echo "- Jenkins, GitHub Actions, Pipelines, Automation" >> README.md
+            echo "- [Browse](./cicd/)" >> README.md
+            echo "" >> README.md
 
-### 4. CI/CD
-- Continuous Integration/Continuous Deployment
-- Pipeline optimization
-- Automation strategies
-- [Browse All CI/CD Content](./cicd/)
+            echo "<h2><img src='https://cdn.simpleicons.org/apachekafka' width='20'/> Automation</h2>" >> README.md
+            echo "- Daily content generation" >> README.md
+            echo "- Auto dashboard updates" >> README.md
+            echo "- CI/CD pipelines and monitoring" >> README.md
+            echo "" >> README.md
 
-## 📊 Latest Activity
-Check out our [Dashboard](./DASHBOARD.md).
+            echo "<h2><img src='https://cdn.simpleicons.org/grafana' width='20'/> Dashboard</h2>" >> README.md
+            echo "Live statistics and progress: [View Dashboard](./DASHBOARD.md)" >> README.md
+            echo "" >> README.md
 
-## 🤖 Auto-Generated Content
-New content is generated daily at 00:00 UTC.
-
----
-*This repository is automatically maintained.*
-EOF
+            echo "---" >> README.md
+            echo "<p align='center'>Auto-maintained DevOps Knowledge Hub</p>" >> README.md
           fi
 
       - name: Configure Git
@@ -83,6 +90,6 @@ EOF
       - name: Commit README update
         run: |
           git add README.md
-          git commit -m "docs(readme): update timestamp" || echo "No changes to commit"
+          git commit -m "docs(readme): update with SVG icons" || echo "No changes"
           git pull --rebase origin main
           git push origin main
