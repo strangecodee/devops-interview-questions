@@ -23,18 +23,18 @@ jobs:
           if [ -f "README.md" ]; then
             sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
           else
-            cat > README.md <<EOF
+            cat > README.md <<'EOF'
 # DevOps Interview Questions Repository
 
 Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
 
 ## 🏆 Current Stats
 
-![Updated](https://img.shields.io/badge/Updated-$(date +'%Y-%m-%d')-brightgreen)
-![Interview](https://img.shields.io/badge/Interview_0-purple)
-![Docker](https://img.shields.io/badge/Docker_0-blue)
-![Kubernetes](https://img.shields.io/badge/K8s_0-green)
-![CI/CD](https://img.shields.io/badge/CICD_0-orange)
+![Updated](https://img.shields.io/badge/Updated-static-brightgreen)
+![Interview](https://img.shields.io/badge/Interview-0-purple)
+![Docker](https://img.shields.io/badge/Docker-0-blue)
+![Kubernetes](https://img.shields.io/badge/K8s-0-green)
+![CI/CD](https://img.shields.io/badge/CICD-0-orange)
 
 *Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*
 
