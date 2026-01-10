@@ -2,7 +2,7 @@ name: Update README Timestamp
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # Daily at 00:30 (same as dashboard)
+    - cron: "30 0 * * *"  # Daily at 00:30 UTC
   workflow_dispatch:
 
 jobs:
@@ -17,11 +17,9 @@ jobs:
 
       - name: Update README Timestamp
         run: |
-          # Update the main README with current timestamp
           if [ -f "README.md" ]; then
             sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
           else
-            # Create a new README if it doesn't exist
             cat > README.md << 'EOF'
 # DevOps Interview Questions Repository
 
@@ -38,8 +36,6 @@ Welcome to the comprehensive DevOps interview preparation repository! This proje
 *Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*
 
 ## 📚 Content Categories
-
-This repository covers four main DevOps areas with regularly updated content:
 
 ### 1. DevOps Interview Questions
 - Comprehensive interview questions and answers
@@ -65,24 +61,13 @@ This repository covers four main DevOps areas with regularly updated content:
 - [Browse All CI/CD Content](./cicd/)
 
 ## 📊 Latest Activity
-
-Check out our [Dashboard](./DASHBOARD.md) for the most recently generated content across all categories.
+Check out our [Dashboard](./DASHBOARD.md).
 
 ## 🤖 Auto-Generated Content
-
-New content is generated daily at 00:00 UTC with random topics covering various DevOps domains. Each piece of content includes:
-- Relevant DevOps topics
-- Different writing styles (Enterprise, SRE-focused, Security-heavy, etc.)
-- Varying detail levels (Low, Medium, High)
-- Unique keywords for easy tracking
-
-## 📈 Weekly Summary
-
-For a comprehensive overview of weekly content, check our [Weekly Summary](./WEEKLY_SUMMARY.md).
+New content is generated daily at 00:00 UTC.
 
 ---
-
-*This repository is automatically maintained. New content is added daily to help you stay current with DevOps trends and best practices.*
+*This repository is automatically maintained.*
 EOF
           fi
 
