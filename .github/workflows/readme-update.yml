@@ -1,61 +1,73 @@
-name: Update README
+name: Generate Elite DevOps README
 
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "30 0 * * *"
   workflow_dispatch:
 
 jobs:
-  update-readme:
+  readme_update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Update README
+      - name: Generate README
         run: |
           set -e
 
-          if grep -q "Last Updated:" README.md 2>/dev/null; then
-            sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
-          else
-            echo '<h1 align="center">DevOps Interview Questions Repository</h1>' > README.md
-            echo '<p align="center">' >> README.md
-            echo '<img src="https://cdn.simpleicons.org/linux" width="40"/>' >> README.md
-            echo '<img src="https://cdn.simpleicons.org/docker" width="40"/>' >> README.md
-            echo '<img src="https://cdn.simpleicons.org/kubernetes" width="40"/>' >> README.md
-            echo '<img src="https://cdn.simpleicons.org/jenkins" width="40"/>' >> README.md
-            echo '</p>' >> README.md
-            echo "" >> README.md
+          echo '<p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="90"/></p>' > README.md
+          echo '<h1 align="center">DevOps Interview & Practice Hub</h1>' >> README.md
 
-            echo "<h2>About</h2>" >> README.md
-            echo "This repository is an auto-maintained DevOps Interview & Practice Hub covering Linux, Docker, Kubernetes, CI/CD and Cloud." >> README.md
-            echo "" >> README.md
+          echo '<p align="center">' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/linux" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/docker" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/kubernetes" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/jenkins" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/githubactions" width="40"/>' >> README.md
+          echo '</p>' >> README.md
 
-            echo "<h2>Technology Stack</h2>" >> README.md
-            echo "- Linux" >> README.md
-            echo "- Docker" >> README.md
-            echo "- Kubernetes" >> README.md
-            echo "- Jenkins / CI-CD" >> README.md
-            echo "- GitHub Actions" >> README.md
-            echo "" >> README.md
+          echo '<p align="center">' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/amazonaws" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/googlecloud" width="40"/>' >> README.md
+          echo '<img src="https://cdn.simpleicons.org/microsoftazure" width="40"/>' >> README.md
+          echo '</p>' >> README.md
 
-            echo "<h2>Content Areas</h2>" >> README.md
-            echo "- [DevOps Interview](./devops-interview)" >> README.md
-            echo "- [Docker](./docker)" >> README.md
-            echo "- [Kubernetes](./kubernetes)" >> README.md
-            echo "- [CI/CD](./cicd)" >> README.md
-            echo "" >> README.md
+          echo '---' >> README.md
 
-            echo "<h2>Dashboard</h2>" >> README.md
-            echo "Live stats: [View Dashboard](./DASHBOARD.md)" >> README.md
-            echo "" >> README.md
+          echo '## About' >> README.md
+          echo 'Auto-maintained DevOps Interview & Production Readiness Hub covering Linux, Docker, Kubernetes, CI/CD, Cloud & SRE practices.' >> README.md
 
-            echo "*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*" >> README.md
-          fi
+          echo '## Architecture' >> README.md
+          echo '<p align="center"><img src="https://raw.githubusercontent.com/ashishrpandey/cloud-architecture-diagrams/master/devops/devops-ci-cd-architecture.svg" width="700"/></p>' >> README.md
+
+          echo '## Technology Stack' >> README.md
+          echo '- Linux & System Administration' >> README.md
+          echo '- Docker & Containerization' >> README.md
+          echo '- Kubernetes & Orchestration' >> README.md
+          echo '- Jenkins & GitHub Actions CI/CD' >> README.md
+          echo '- AWS, GCP, Azure Cloud Platforms' >> README.md
+
+          echo '## Knowledge Areas' >> README.md
+          echo '- [DevOps Interview](./devops-interview)' >> README.md
+          echo '- [Docker](./docker)' >> README.md
+          echo '- [Kubernetes](./kubernetes)' >> README.md
+          echo '- [CI/CD](./cicd)' >> README.md
+
+          echo '## Live Dashboard' >> README.md
+          echo '[View DevOps Knowledge Dashboard](./DASHBOARD.md)' >> README.md
+
+          echo '## Automation' >> README.md
+          echo '- Daily content generation' >> README.md
+          echo '- Automated README & Dashboard updates' >> README.md
+          echo '- CI/CD pipelines via GitHub Actions' >> README.md
+
+          echo '---' >> README.md
+          echo "<p align='center'><b>Last Updated:</b> $(date -u +'%A, %d %B %Y %H:%M:%S UTC')</p>" >> README.md
+          echo "<p align='center'>Enterprise-Grade DevOps Knowledge Repository</p>" >> README.md
 
       - name: Configure Git
         run: |
@@ -63,8 +75,9 @@ jobs:
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit and push if changed
+      - name: Commit README
         run: |
           git add README.md
-          git commit -m "docs(readme): auto-update README content" || exit 0
-          git push
+          git commit -m "docs(readme): elite DevOps portfolio with SVG architecture & cloud logos" || echo "No changes"
+          git pull --rebase origin main
+          git push origin main
