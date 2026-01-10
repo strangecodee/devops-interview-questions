@@ -17,32 +17,42 @@ jobs:
 
       - name: Update Dashboard File
         run: |
-          export LANG=C.UTF-8 LC_ALL=C.UTF-8
-          export LANG=en_US.UTF-8
-          export LC_ALL=en_US.UTF-8
           export LANG=C.UTF-8
           export LC_ALL=C.UTF-8
 
           DASH="DASHBOARD.md"
 
-          echo '<h1><img src="https://cdn.simpleicons.org/linux" width="22"/> DevOps Knowledge Hub Dashboard</h1>' > $DASH
+          make_bar() {
+            local value=$1
+            local max=$2
+            local width=30
+            local filled=$(( value * width / max ))
+            local empty=$(( width - filled ))
+
+            printf "["
+            printf "%0.s#" $(seq 1 $filled)
+            printf "%0.s." $(seq 1 $empty)
+            printf "]"
+          }
+
+          echo "# DevOps Knowledge Hub Dashboard" > $DASH
           echo "" >> $DASH
-          echo "> *Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')*" >> $DASH
+          echo "> Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')" >> $DASH
           echo "" >> $DASH
-          
+
           INTERVIEW=$(find devops-interview -type f -name "*.md" -not -name "README.md" | wc -l)
           DOCKER=$(find docker -type f -name "*.md" -not -name "README.md" | wc -l)
           K8S=$(find kubernetes -type f -name "*.md" -not -name "README.md" | wc -l)
           CICD=$(find cicd -type f -name "*.md" -not -name "README.md" | wc -l)
           TOTAL=$((INTERVIEW + DOCKER + K8S + CICD))
 
-          BAR_INTERVIEW=$(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '#')
-          BAR_DOCKER=$(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '#')
-          BAR_K8S=$(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '#')
-          BAR_CICD=$(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '#')
-          BAR_TOTAL=$(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '=')
+          BAR_INTERVIEW=$(make_bar $INTERVIEW 100)
+          BAR_DOCKER=$(make_bar $DOCKER 100)
+          BAR_K8S=$(make_bar $K8S 100)
+          BAR_CICD=$(make_bar $CICD 100)
+          BAR_TOTAL=$(make_bar $TOTAL 400)
 
-          echo '<h2><img src="https://cdn.simpleicons.org/github" width="20"/> Repository Statistics</h2>' >> $DASH
+          echo "## Repository Statistics" >> $DASH
           echo "" >> $DASH
           echo "| Category | Count | Progress |" >> $DASH
           echo "|----------|-------|----------|" >> $DASH
@@ -53,17 +63,16 @@ jobs:
           echo "| Total | $TOTAL | $BAR_TOTAL |" >> $DASH
           echo "" >> $DASH
 
-          echo '<h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>' >> $DASH
+          echo "## Latest Content by Category" >> $DASH
           echo "" >> $DASH
 
           format_category() {
             local dir=$1
-            local icon=$2
-            local title=$3
-            
-            echo "<h3><img src=\"$icon\" width=\"18\"/> $title</h3>" >> $DASH
+            local title=$2
+
+            echo "### $title" >> $DASH
             echo "" >> $DASH
-            
+
             if [ -d "$dir" ]; then
               files=$(find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -10)
               if [ -n "$files" ]; then
@@ -81,22 +90,20 @@ jobs:
             echo "" >> $DASH
           }
 
-          format_category "devops-interview" "https://cdn.simpleicons.org/linux" "DevOps Interview Questions"
-          format_category "docker" "https://cdn.simpleicons.org/docker" "Docker & Containerization"
-          format_category "kubernetes" "https://cdn.simpleicons.org/kubernetes" "Kubernetes Orchestration"
-          format_category "cicd" "https://cdn.simpleicons.org/jenkins" "CI/CD Pipelines"
+          format_category "devops-interview" "DevOps Interview Questions"
+          format_category "docker" "Docker & Containerization"
+          format_category "kubernetes" "Kubernetes Orchestration"
+          format_category "cicd" "CI/CD Pipelines"
 
-          echo '<h2><img src="https://cdn.simpleicons.org/apachekafka" width="20"/> Quick Stats</h2>' >> $DASH
+          echo "## Quick Stats" >> $DASH
           echo "" >> $DASH
           echo "- Last Update: $(date -u +'%B %d, %Y')" >> $DASH
           echo "- Total Resources: $TOTAL articles" >> $DASH
           echo "- Daily Updates: Automated content generation" >> $DASH
           echo "- Topics Covered: DevOps, Docker, Kubernetes, CI/CD" >> $DASH
           echo "" >> $DASH
-
           echo "---" >> $DASH
-          echo "" >> $DASH
-          echo "*Pro tip: Check back daily for fresh DevOps content and insights!*" >> $DASH
+          echo "*Check back daily for fresh DevOps content and insights!*" >> $DASH
 
       - name: Configure Git
         run: |
