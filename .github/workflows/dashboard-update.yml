@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Update Dashboard File
+      - name: Generate Dashboard
         run: |
           export LANG=C.UTF-8
           export LC_ALL=C.UTF-8
@@ -35,17 +35,18 @@ jobs:
             printf "]"
           }
 
-          echo "# 🐧 DevOps Knowledge Hub Dashboard" > $DASH
+          echo '<p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="80"/></p>' > $DASH
+          echo '<h1><img src="https://cdn.simpleicons.org/linux" width="26"/> DevOps Knowledge Hub Dashboard</h1>' >> $DASH
           echo "" >> $DASH
           echo "> Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')" >> $DASH
           echo "" >> $DASH
 
           echo "```" >> $DASH
-          echo "⠋ Initializing DevOps Knowledge Hub..." >> $DASH
-          echo "⠙ Starting Docker Engine..." >> $DASH
-          echo "⠹ Spinning up Kubernetes Cluster..." >> $DASH
-          echo "⠸ Loading CI/CD Pipelines..." >> $DASH
-          echo "⠼ System Ready. Dashboard Loaded 🚀" >> $DASH
+          echo "Booting DevOps Knowledge Hub..." >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓░░░░░░░░░░] 50%  Loading Docker Modules" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░] 70%  Starting Kubernetes Pods" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░] 90%  Warming CI/CD Pipelines" >> $DASH
+          echo "[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100% Dashboard Ready" >> $DASH
           echo "```" >> $DASH
           echo "" >> $DASH
 
@@ -61,7 +62,7 @@ jobs:
           BAR_CICD=$(make_bar $CICD 100)
           BAR_TOTAL=$(make_bar $TOTAL 400)
 
-          echo "## Repository Statistics" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/github" width="20"/> Repository Statistics</h2>' >> $DASH
           echo "" >> $DASH
           echo "| Category | Count | Progress |" >> $DASH
           echo "|----------|-------|----------|" >> $DASH
@@ -72,47 +73,40 @@ jobs:
           echo "| Total | $TOTAL | $BAR_TOTAL |" >> $DASH
           echo "" >> $DASH
 
-          echo "## Latest Content by Category" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>' >> $DASH
           echo "" >> $DASH
 
           format_category() {
             local dir=$1
-            local title=$2
+            local icon=$2
+            local title=$3
 
-            echo "### $title" >> $DASH
+            echo "<h3><img src=\"$icon\" width=\"18\"/> $title</h3>" >> $DASH
             echo "" >> $DASH
 
-            if [ -d "$dir" ]; then
-              files=$(find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -10)
-              if [ -n "$files" ]; then
-                for file in $files; do
-                  topic=$(head -n 10 "$file" | grep -E "(# |Topic:|\\*\\*Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/\\*\\*Topic: //; s/ —.*//')
-                  [ -z "$topic" ] && topic="DevOps Content"
-                  echo "  - [${topic:0:60}${topic:60:+...}]($file)" >> $DASH
-                done
-              else
-                echo "  *No content available*" >> $DASH
-              fi
-            else
-              echo "  *Directory does not exist*" >> $DASH
-            fi
+            files=$(find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -10)
+            for file in $files; do
+              topic=$(head -n 10 "$file" | grep -E "(# |Topic:|\\*\\*Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/\\*\\*Topic: //')
+              [ -z "$topic" ] && topic="DevOps Content"
+              echo "  - [$topic]($file)" >> $DASH
+            done
             echo "" >> $DASH
           }
 
-          format_category "devops-interview" "DevOps Interview Questions"
-          format_category "docker" "Docker & Containerization"
-          format_category "kubernetes" "Kubernetes Orchestration"
-          format_category "cicd" "CI/CD Pipelines"
+          format_category "devops-interview" "https://cdn.simpleicons.org/linux" "DevOps Interview Questions"
+          format_category "docker" "https://cdn.simpleicons.org/docker" "Docker & Containerization"
+          format_category "kubernetes" "https://cdn.simpleicons.org/kubernetes" "Kubernetes Orchestration"
+          format_category "cicd" "https://cdn.simpleicons.org/jenkins" "CI/CD Pipelines"
 
-          echo "## Quick Stats" >> $DASH
+          echo '<h2><img src="https://cdn.simpleicons.org/apachekafka" width="20"/> Quick Stats</h2>' >> $DASH
           echo "" >> $DASH
           echo "- Last Update: $(date -u +'%B %d, %Y')" >> $DASH
           echo "- Total Resources: $TOTAL articles" >> $DASH
-          echo "- Daily Updates: Automated content generation" >> $DASH
-          echo "- Topics Covered: DevOps, Docker, Kubernetes, CI/CD" >> $DASH
+          echo "- Daily Automation: Enabled" >> $DASH
+          echo "- Tech Stack: Docker, Kubernetes, CI/CD, Linux" >> $DASH
           echo "" >> $DASH
           echo "---" >> $DASH
-          echo "*Check back daily for fresh DevOps content and insights!*" >> $DASH
+          echo "*Auto-generated DevOps Knowledge Dashboard*" >> $DASH
 
       - name: Configure Git
         run: |
@@ -120,9 +114,9 @@ jobs:
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit dashboard update
+      - name: Commit Dashboard
         run: |
           git add DASHBOARD.md
-          git commit -m "docs(dashboard): auto-update dashboard" || echo "No changes to commit"
+          git commit -m "docs: auto-update DevOps dashboard" || echo "No changes"
           git pull --rebase origin main
           git push origin main
