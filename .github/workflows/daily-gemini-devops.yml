@@ -90,7 +90,7 @@ jobs:
               echo "Making API call to Hugging Face..."
               
               # Create a temporary file containing the properly escaped JSON
-              cat > /tmp/request_payload.json <<EOF
+              cat > /tmp/request_payload.json << 'EOF'
 {
   "messages": [
     {
@@ -104,6 +104,9 @@ jobs:
   "temperature": 0.7
 }
 EOF
+
+              # Replace the placeholder with the actual escaped content
+              sed -i "s/\$(printf '%s' \"\$full_prompt\" | jq -Rs .)/$(printf '%s' "$full_prompt" | jq -Rs .)/g" /tmp/request_payload.json
 
               # Try with the Hugging Face Chat Completions API using the properly formatted JSON file
               response=$(timeout 60 curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
