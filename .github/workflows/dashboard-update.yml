@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "* * * * *"  # Every minute for testing
+    - cron: "* * * * *"  # Change back to daily at 00:30
   workflow_dispatch:
 
 jobs:
@@ -93,12 +93,8 @@ jobs:
 
       - name: Update Main README
         run: |
-          # Update the main README with current timestamp
-          if [ -f "README.md" ]; then
-            sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
-          else
-            # Create a new README if it doesn't exist
-            cat > README.md << 'EOF'
+          # Create/update the main README with current timestamp
+          cat > README.md << 'EOF'
 # DevOps Interview Questions Repository
 
 Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
@@ -160,7 +156,6 @@ For a comprehensive overview of weekly content, check our [Weekly Summary](./WEE
 
 *This repository is automatically maintained. New content is added daily to help you stay current with DevOps trends and best practices.*
 EOF
-          fi
 
       - name: Configure Git
         run: |
