@@ -2,7 +2,7 @@ name: Update Dashboard
 
 on:
   schedule:
-    - cron: "* * * * *"  # Daily at 00:30
+    - cron: "30 0 * * *"  # Daily at 00:30 UTC
   workflow_dispatch:
 
 jobs:
@@ -17,6 +17,9 @@ jobs:
 
       - name: Update Dashboard File
         run: |
+          export LANG=en_US.UTF-8
+          export LC_ALL=en_US.UTF-8
+
           DASH="DASHBOARD.md"
 
           echo "# 🚀 DevOps Knowledge Hub Dashboard" > $DASH
@@ -24,28 +27,32 @@ jobs:
           echo "> *Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')*" >> $DASH
           echo "" >> $DASH
           
-          # Create stats summary
           INTERVIEW=$(find devops-interview -type f -name "*.md" -not -name "README.md" | wc -l)
           DOCKER=$(find docker -type f -name "*.md" -not -name "README.md" | wc -l)
           K8S=$(find kubernetes -type f -name "*.md" -not -name "README.md" | wc -l)
           CICD=$(find cicd -type f -name "*.md" -not -name "README.md" | wc -l)
           TOTAL=$((INTERVIEW + DOCKER + K8S + CICD))
-          
+
+          BAR_INTERVIEW=$(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '█')
+          BAR_DOCKER=$(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '█')
+          BAR_K8S=$(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '█')
+          BAR_CICD=$(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '█')
+          BAR_TOTAL=$(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '■')
+
           echo "## 📊 Repository Statistics" >> $DASH
           echo "" >> $DASH
           echo "| Category | Count | Progress |" >> $DASH
           echo "|----------|-------|----------|" >> $DASH
-          echo "| 🎯 DevOps Interview | $INTERVIEW | $(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '█') |" >> $DASH
-          echo "| 🐳 Docker | $DOCKER | $(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '█') |" >> $DASH
-          echo "| ☸️ Kubernetes | $K8S | $(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '█') |" >> $DASH
-          echo "| ⚙️ CI/CD | $CICD | $(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '█') |" >> $DASH
-          echo "| 📚 Total | $TOTAL | $(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '■') |" >> $DASH
+          echo "| 🎯 DevOps Interview | $INTERVIEW | $BAR_INTERVIEW |" >> $DASH
+          echo "| 🐳 Docker | $DOCKER | $BAR_DOCKER |" >> $DASH
+          echo "| ☸️ Kubernetes | $K8S | $BAR_K8S |" >> $DASH
+          echo "| ⚙️ CI/CD | $CICD | $BAR_CICD |" >> $DASH
+          echo "| 📚 Total | $TOTAL | $BAR_TOTAL |" >> $DASH
           echo "" >> $DASH
 
           echo "## 📚 Latest Content by Category" >> $DASH
           echo "" >> $DASH
 
-          # Function to format category content
           format_category() {
             local dir=$1
             local emoji=$2
@@ -58,11 +65,8 @@ jobs:
               files=$(find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -10)
               if [ -n "$files" ]; then
                 for file in $files; do
-                  # Extract the topic from the file if possible
-                  topic=$(head -n 10 "$file" | grep -E "(# |Topic:|**Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/**Topic: //; s/ —.*//')
-                  if [ -z "$topic" ]; then
-                    topic="DevOps Content"
-                  fi
+                  topic=$(head -n 10 "$file" | grep -E "(# |Topic:|\\*\\*Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/\\*\\*Topic: //; s/ —.*//')
+                  [ -z "$topic" ] && topic="DevOps Content"
                   echo "  📝 [${topic:0:60}${topic:60:+...}]($file)" >> $DASH
                 done
               else
