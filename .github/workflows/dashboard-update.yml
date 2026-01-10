@@ -19,23 +19,148 @@ jobs:
         run: |
           DASH="DASHBOARD.md"
 
-          echo "# 📊 DevOps Dashboard (Auto Updated)" > $DASH
+          echo "# 🚀 DevOps Knowledge Hub Dashboard" > $DASH
           echo "" >> $DASH
-          echo "Last Updated: $(date)" >> $DASH
+          echo "> *Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')*" >> $DASH
+          echo "" >> $DASH
+          
+          # Create stats summary
+          INTERVIEW=$(find devops-interview -type f -name "*.md" -not -name "README.md" | wc -l)
+          DOCKER=$(find docker -type f -name "*.md" -not -name "README.md" | wc -l)
+          K8S=$(find kubernetes -type f -name "*.md" -not -name "README.md" | wc -l)
+          CICD=$(find cicd -type f -name "*.md" -not -name "README.md" | wc -l)
+          TOTAL=$((INTERVIEW + DOCKER + K8S + CICD))
+          
+          echo "## 📊 Repository Statistics" >> $DASH
+          echo "" >> $DASH
+          echo "| Category | Count | Progress |" >> $DASH
+          echo "|----------|-------|----------|" >> $DASH
+          echo "| 🎯 DevOps Interview | $INTERVIEW | $(printf '%*s' $((INTERVIEW > 50 ? 50 : INTERVIEW)) | tr ' ' '█') |" >> $DASH
+          echo "| 🐳 Docker | $DOCKER | $(printf '%*s' $((DOCKER > 50 ? 50 : DOCKER)) | tr ' ' '█') |" >> $DASH
+          echo "| ☸️ Kubernetes | $K8S | $(printf '%*s' $((K8S > 50 ? 50 : K8S)) | tr ' ' '█') |" >> $DASH
+          echo "| ⚙️ CI/CD | $CICD | $(printf '%*s' $((CICD > 50 ? 50 : CICD)) | tr ' ' '█') |" >> $DASH
+          echo "| 📚 Total | $TOTAL | $(printf '%*s' $((TOTAL > 100 ? 50 : TOTAL/2)) | tr ' ' '■') |" >> $DASH
           echo "" >> $DASH
 
-          for dir in devops-interview docker kubernetes cicd; do
-            echo "## 🔹 $(basename $dir)" >> $DASH
+          echo "## 📚 Latest Content by Category" >> $DASH
+          echo "" >> $DASH
+
+          # Function to format category content
+          format_category() {
+            local dir=$1
+            local emoji=$2
+            local title=$3
+            
+            echo "### $emoji $title" >> $DASH
             echo "" >> $DASH
-
+            
             if [ -d "$dir" ]; then
-              find "$dir" -type f -mtime -7 | while read file; do
-                echo "- [$file]($file)" >> $DASH
-              done
+              files=$(find "$dir" -type f -name "*.md" -not -name "README.md" | sort -r | head -10)
+              if [ -n "$files" ]; then
+                for file in $files; do
+                  # Extract the topic from the file if possible
+                  topic=$(head -n 10 "$file" | grep -E "(# |Topic:|**Topic:)" | head -1 | sed 's/# //; s/Topic: //; s/**Topic: //; s/ —.*//')
+                  if [ -z "$topic" ]; then
+                    topic="DevOps Content"
+                  fi
+                  echo "  📝 [${topic:0:60}${topic:60:+...}]($file)" >> $DASH
+                done
+              else
+                echo "  *No content available*" >> $DASH
+              fi
+            else
+              echo "  *Directory does not exist*" >> $DASH
             fi
-
             echo "" >> $DASH
-          done
+          }
+
+          format_category "devops-interview" "🎯" "DevOps Interview Questions"
+          format_category "docker" "🐳" "Docker & Containerization"
+          format_category "kubernetes" "☸️" "Kubernetes Orchestration"
+          format_category "cicd" "⚙️" "CI/CD Pipelines"
+
+          echo "## 🏆 Quick Stats" >> $DASH
+          echo "" >> $DASH
+          echo "- 📅 **Last Update**: $(date -u +'%B %d, %Y')" >> $DASH
+          echo "- 🚀 **Total Resources**: $TOTAL articles" >> $DASH
+          echo "- 🔄 **Daily Updates**: Automated content generation" >> $DASH
+          echo "- 💡 **Topics Covered**: DevOps best practices, Docker, Kubernetes, CI/CD" >> $DASH
+          echo "" >> $DASH
+
+          echo "---" >> $DASH
+          echo "" >> $DASH
+          echo "*💡 Pro tip: Check back daily for fresh DevOps content and insights!*" >> $DASH
+
+      - name: Update Main README
+        run: |
+          # Update the main README with current timestamp
+          if [ -f "README.md" ]; then
+            sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
+          else
+            # Create a new README if it doesn't exist
+            cat > README.md << EOF
+# DevOps Interview Questions Repository
+
+Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
+
+## 🏆 Current Stats
+
+![Updated](https://img.shields.io/badge/Updated-$(date +'%Y-%m-%d')-brightgreen)
+![Interview](https://img.shields.io/badge/Interview_0-purple)
+![Docker](https://img.shields.io/badge/Docker_0-blue)
+![Kubernetes](https://img.shields.io/badge/K8s_0-green)
+![CI/CD](https://img.shields.io/badge/CICD_0-orange)
+
+*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y')*
+
+## 📚 Content Categories
+
+This repository covers four main DevOps areas with regularly updated content:
+
+### 1. DevOps Interview Questions
+- Comprehensive interview questions and answers
+- Real-world scenarios and best practices
+- [Browse All Interview Content](./devops-interview/)
+
+### 2. Docker
+- Containerization techniques
+- Docker best practices
+- Optimization strategies
+- [Browse All Docker Content](./docker/)
+
+### 3. Kubernetes
+- Orchestration concepts
+- Cluster management
+- Advanced deployment strategies
+- [Browse All Kubernetes Content](./kubernetes/)
+
+### 4. CI/CD
+- Continuous Integration/Continuous Deployment
+- Pipeline optimization
+- Automation strategies
+- [Browse All CI/CD Content](./cicd/)
+
+## 📊 Latest Activity
+
+Check out our [Dashboard](./DASHBOARD.md) for the most recently generated content across all categories.
+
+## 🤖 Auto-Generated Content
+
+New content is generated daily at 00:00 UTC with random topics covering various DevOps domains. Each piece of content includes:
+- Relevant DevOps topics
+- Different writing styles (Enterprise, SRE-focused, Security-heavy, etc.)
+- Varying detail levels (Low, Medium, High)
+- Unique keywords for easy tracking
+
+## 📈 Weekly Summary
+
+For a comprehensive overview of weekly content, check our [Weekly Summary](./WEEKLY_SUMMARY.md).
+
+---
+
+*This repository is automatically maintained. New content is added daily to help you stay current with DevOps trends and best practices.*
+EOF
+          fi
 
       - name: Configure Git
         run: |
@@ -45,6 +170,7 @@ jobs:
 
       - name: Commit dashboard update
         run: |
-          git add DASHBOARD.md
-          git commit -m "docs(dashboard): auto-update dashboard" || exit 0
-          git push
+          git add DASHBOARD.md README.md
+          git commit -m "docs(dashboard): auto-update dashboard and README timestamp" || echo "No changes to commit"
+          git pull --rebase origin main
+          git push origin main || echo "Push failed, trying merge"
