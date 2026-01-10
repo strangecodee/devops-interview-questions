@@ -2,7 +2,7 @@ name: Update README Timestamp
 
 on:
   schedule:
-    - cron: "* * * * *"  # Daily at 00:30 (same as dashboard)
+    - cron: "30 0 * * *"  # Daily at 00:30 (same as dashboard)
   workflow_dispatch:
 
 jobs:
