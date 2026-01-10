@@ -89,33 +89,32 @@ jobs:
             else
               echo "Making API call to Hugging Face..."
               
-              # Create a temporary file containing the properly escaped JSON
-              cat > /tmp/request_payload.json << 'EOF'
-{
-  "messages": [
-    {
-      "role": "user",
-      "content": $(printf '%s' "$full_prompt" | jq -Rs .)
-    }
-  ],
-  "model": "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
-  "stream": false,
-  "max_tokens": 500,
-  "temperature": 0.7
-}
-EOF
-
-              # Replace the placeholder with the actual escaped content
-              sed -i "s/\$(printf '%s' \"\$full_prompt\" | jq -Rs .)/$(printf '%s' "$full_prompt" | jq -Rs .)/g" /tmp/request_payload.json
-
-              # Try with the Hugging Face Chat Completions API using the properly formatted JSON file
+              # Properly escape the prompt content for JSON using jq
+              escaped_prompt=$(printf '%s' "$full_prompt" | jq -Rs .)
+              
+              # Create the JSON payload as a string with properly escaped content
+              payload_json=$(jq -n \
+                --arg content "$escaped_prompt" \
+                --argjson escaped_content "$escaped_prompt" \
+                '{
+                  messages: [{
+                    role: "user",
+                    content: $escaped_content
+                  }],
+                  model: "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+                  stream: false,
+                  max_tokens: 500,
+                  temperature: 0.7
+                }')
+              
+              # Try with the Hugging Face Chat Completions API
               response=$(timeout 60 curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
                 --connect-timeout 30 \
                 --max-time 60 \
                 -X POST \
                 -H "Authorization: Bearer $HF_TOKEN" \
                 -H "Content-Type: application/json" \
-                -d @/tmp/request_payload.json \
+                -d "$payload_json" \
                 "https://router.huggingface.co/v1/chat/completions")
               
               # Check if curl timed out
