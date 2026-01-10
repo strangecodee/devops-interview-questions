@@ -3,7 +3,7 @@ name: Send Daily DevOps Content to Telegram
 on:
   workflow_run:
     workflows:
-      - "Daily DevOps Content Generator (Gemini)"
+      - "Daily DevOps Content Generator (HuggingFace)"
     types:
       - completed
 
