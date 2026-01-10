@@ -98,7 +98,7 @@ jobs:
             sed -i "s/\*Last Updated:.*\*/\*Last Updated: $(date -u +'%a %b %d %H:%M:%S UTC %Y') \*/" README.md
           else
             # Create a new README if it doesn't exist
-            cat > README.md << EOF
+            cat > README.md << 'EOF'
 # DevOps Interview Questions Repository
 
 Welcome to the comprehensive DevOps interview preparation repository! This project automatically generates fresh DevOps content daily to help you prepare for interviews and stay updated with industry trends.
