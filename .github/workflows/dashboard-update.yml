@@ -35,9 +35,18 @@ jobs:
             printf "]"
           }
 
-          echo "# DevOps Knowledge Hub Dashboard" > $DASH
+          echo "# 🐧 DevOps Knowledge Hub Dashboard" > $DASH
           echo "" >> $DASH
           echo "> Updated on: $(date -u +'%A, %B %d, %Y at %H:%M:%S UTC')" >> $DASH
+          echo "" >> $DASH
+
+          echo "```" >> $DASH
+          echo "⠋ Initializing DevOps Knowledge Hub..." >> $DASH
+          echo "⠙ Starting Docker Engine..." >> $DASH
+          echo "⠹ Spinning up Kubernetes Cluster..." >> $DASH
+          echo "⠸ Loading CI/CD Pipelines..." >> $DASH
+          echo "⠼ System Ready. Dashboard Loaded 🚀" >> $DASH
+          echo "```" >> $DASH
           echo "" >> $DASH
 
           INTERVIEW=$(find devops-interview -type f -name "*.md" -not -name "README.md" | wc -l)
