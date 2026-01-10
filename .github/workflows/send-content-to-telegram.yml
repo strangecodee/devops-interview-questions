@@ -3,7 +3,7 @@ name: Send Daily DevOps Content to Telegram
 on:
   workflow_run:
     workflows:
-      - "Daily DevOps Content Generator (Gemini)"
+      - "Daily DevOps Content Generator (HuggingFace)"
     types:
       - completed
 
@@ -15,14 +15,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Read today's date
-        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Find today's content files
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          
+          # Find files created today with the timestamp format (YYYY-MM-DD_HH-MM.md)
+          for category in devops-interview docker kubernetes cicd; do
+            # Find files that start with today's date followed by underscore and time
+            FILE=$(find $category -name "$DATE*.md" -type f -newer /dev/null 2>/dev/null | head -n 1)
+            if [ -n "$FILE" ] && [ -f "$FILE" ]; then
+              echo "${category^^}_FILE=$FILE" >> $GITHUB_ENV
+              echo "Found $category file: $FILE"
+            else
+              echo "${category^^}_FILE=" >> $GITHUB_ENV
+              echo "No $category file found for today"
+            fi
+          done
 
       - name: Send DevOps Content to Telegram
         env:
           BOT: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
-          DATE: ${{ env.DATE }}
         run: |
           send_message () {
             TEXT="$1"
@@ -32,38 +46,50 @@ jobs:
               --data-urlencode text="$TEXT" > /dev/null
           }
 
-          # -------------------------------------
-          # CATEGORY LIST
-          # -------------------------------------
+          DATE="${{ env.DATE }}"
+          
+          # Define folder mapping using environment variables
+          DEVOPS_FILE="${{ env.DEVOPS_INTERVIEW_FILE }}"
+          DOCKER_FILE="${{ env.DOCKER_FILE }}"
+          KUBE_FILE="${{ env.KUBERNETES_FILE }}"
+          CICD_FILE="${{ env.CICD_FILE }}"
+
+          # Send available content files to Telegram
           declare -A folders=(
-            ["DevOps Interview"]="devops-interview/$DATE.md"
-            ["Docker Tip"]="docker/$DATE.md"
-            ["Kubernetes Example"]="kubernetes/$DATE.md"
-            ["CI/CD Tip"]="cicd/$DATE.md"
+            ["DevOps Interview"]="$DEVOPS_FILE"
+            ["Docker Tip"]="$DOCKER_FILE"
+            ["Kubernetes Example"]="$KUBE_FILE"
+            ["CI/CD Tip"]="$CICD_FILE"
           )
 
-          # -------------------------------------
-          # SEND EACH CATEGORY FILE TO TELEGRAM
-          # -------------------------------------
+          FOUND_ANY=false
           for NAME in "${!folders[@]}"; do
             FILE="${folders[$NAME]}"
 
-            if [ -f "$FILE" ]; then
-              CONTENT=$(cat "$FILE")
-
+            if [ -n "$FILE" ] && [ -f "$FILE" ]; then
+              # Extract content (excluding header metadata)
+              CONTENT=$(sed -n '/^$/,$p' "$FILE" | sed '/^$/q;d')  # Skip headers until first blank line
+              
+              # Get the actual content from the file (skip initial metadata)
+              FULL_CONTENT=$(tail -n +7 "$FILE")  # Skip first 6 lines of metadata
+              
+              # Limit content size for Telegram (max 4096 chars)
+              TRUNCATED_CONTENT=$(echo "$FULL_CONTENT" | head -c 3000)
+              
               MESSAGE="📘 *$NAME*  
             📅 Date: $DATE
 
-            $CONTENT"
+            $TRUNCATED_CONTENT"
 
-              # Prevent Telegram message limit (4096 chars)
-              echo "$MESSAGE" | fold -s -w 3800 | while read CHUNK; do
-                send_message "$CHUNK"
-                sleep 1
-              done
-            else
-              send_message "⚠️ File missing: $FILE"
+              # Send message to Telegram
+              send_message "$MESSAGE"
+              sleep 2
+              FOUND_ANY=true
             fi
           done
 
-          send_message "✅ All DevOps content for $DATE has been sent!"
+          if [ "$FOUND_ANY" = true ]; then
+            send_message "✅ All available DevOps content for $DATE has been sent!"
+          else
+            send_message "❌ No content files found for $DATE. Check if content generator ran successfully."
+          fi
