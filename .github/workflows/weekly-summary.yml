@@ -1,53 +1,229 @@
-name: Weekly DevOps Summary (Gemini)
+name: Daily DevOps Content Generator (HuggingFace)
 
 on:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 * * * *"  # Every hour (24 times per day)
   workflow_dispatch:
 
 jobs:
-  summary:
+  generate:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout repo
+      # ───────────────────────────────────────────────
+      # CHECKOUT
+      # ───────────────────────────────────────────────
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: Generate Weekly Summary File
+      # ───────────────────────────────────────────────
+      # RANDOM DECISION ENGINE
+      # ───────────────────────────────────────────────
+      - name: Random contribution decision
+        id: random_decision
         run: |
-          Summary="WEEKLY_SUMMARY.md"
+          # Generate a random number between 1-100
+          RANDOM_NUM=$(( RANDOM % 100 ))
+          
+          # Calculate probability to get 5-12 contributions per day (average ~8.5)
+          # Using 35% probability to get between 5-12 contributions (24 * 0.35 = ~8.4)
+          if [ $RANDOM_NUM -lt 35 ]; then
+            echo "run_contribution=true" >> $GITHUB_OUTPUT
+            echo "Random decision: YES - generating content (random number: $RANDOM_NUM)"
+          else
+            echo "run_contribution=false" >> $GITHUB_OUTPUT
+            echo "Random decision: NO - skipping content generation (random number: $RANDOM_NUM)"
+          fi
 
-          echo "# 📅 Weekly DevOps Summary" > $Summary
-          echo "" >> $Summary
-          echo "Generated on: $(date)" >> $Summary
-          echo "" >> $Summary
-          echo "---" >> $Summary
-          echo "" >> $Summary
+      # ───────────────────────────────────────────────
+      # DEPENDENCIES
+      # ───────────────────────────────────────────────
+      - name: Install dependencies
+        if: steps.random_decision.outputs.run_contribution == 'true'
+        run: sudo apt-get install -y curl jq
 
-          for dir in devops-interview docker kubernetes cicd; do
-            echo "## 🔹 $(basename $dir)" >> $Summary
-            echo "" >> $Summary
+      # ───────────────────────────────────────────────
+      # CONTENT GENERATOR (OUTPUT FIXED)
+      # ───────────────────────────────────────────────
+      - name: Generate DevOps content
+        if: steps.random_decision.outputs.run_contribution == 'true'
+        id: generator
+        env:
+          HF_TOKEN: ${{ secrets.HF_API_KEY }}
+        run: |
+          set -e
+          export TZ="Asia/Kolkata"
 
-            if [ -d "$dir" ]; then
-              find "$dir" -type f -mtime -7 | sort | while read file; do
-                echo "### File: $file" >> $Summary
-                echo "" >> $Summary
-                cat "$file" >> $Summary
-                echo "" >> $Summary
-              done
+          # ───── RANDOMIZATION ENGINE ─────
+          RANDOM_TOPIC=$(shuf -n 1 <<< $'AWS\nTerraform\nHelm\nGitOps\nArgoCD\nIstio\nSRE\nScalability\nMonitoring\nLoad Balancing\nZero-Downtime Deploys\nKubernetes Security\nDocker Layers\nChaos Engineering')
+          RANDOM_SEED=$(date +%s)
+          STYLE=$(shuf -n 1 <<< $'Enterprise tone\nSRE-focused\nSecurity-heavy\nPerformance-optimized\nBeginner-friendly\nShort and concise')
+          DEPTH=$(shuf -n 1 <<< $'Low detail\nMedium detail\nHigh detail')
+          UNIQUE_KEYWORD=$(shuf -n 1 <<< $'phoenix\nnebula\nquantum\natlas\nvector\neclipse\nforge\npulse\nmatrix\nsentinel')
+
+          # ✅ EXPORT OUTPUTS IMMEDIATELY (CRITICAL)
+          {
+            echo "topic=$RANDOM_TOPIC"
+            echo "style=$STYLE"
+            echo "depth=$DEPTH"
+            echo "keyword=$UNIQUE_KEYWORD"
+            echo "seed=$RANDOM_SEED"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Topic: $RANDOM_TOPIC"
+          echo "Style: $STYLE"
+          echo "Depth: $DEPTH"
+          echo "Keyword: $UNIQUE_KEYWORD"
+          echo "HF_TOKEN length: ${#HF_TOKEN}"
+
+          categories_list="devops-interview docker kubernetes cicd"
+
+          for key in ${categories_list}; do
+            prompt_file="prompts/${key}.txt"
+
+            # ✅ Prevent crash if file missing
+            [ -f "$prompt_file" ] || continue
+
+            base_prompt=$(cat "$prompt_file")
+
+            # Format the prompt as a chat message
+            full_prompt="${base_prompt}
+            Style --> ${STYLE}
+            Depth --> ${DEPTH}
+            UniqueKeyword --> ${UNIQUE_KEYWORD}
+            Topic --> ${RANDOM_TOPIC}
+            Seed --> ${RANDOM_SEED}
+            "
+
+            mkdir -p "$key"
+            file="$key/$(date +'%Y-%m-%d_%H-%M').md"
+
+            # Check if API key is set
+            if [ -z "$HF_TOKEN" ]; then
+              echo "ERROR: HF_TOKEN is not set"
+              output="API response unavailable - HF_TOKEN not set"
+            else
+              echo "Making API call to Hugging Face..."
+              
+              # Properly escape the prompt content for JSON using jq
+              escaped_prompt=$(printf '%s' "$full_prompt" | jq -Rs .)
+              
+              # Create the JSON payload as a string with properly escaped content
+              payload_json=$(jq -n \
+                --arg content "$escaped_prompt" \
+                --argjson escaped_content "$escaped_prompt" \
+                '{
+                  messages: [{
+                    role: "user",
+                    content: $escaped_content
+                  }],
+                  model: "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+                  stream: false,
+                  temperature: 0.7
+                }')
+              
+              # Try with the Hugging Face Chat Completions API
+              response=$(timeout 60 curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
+                --connect-timeout 30 \
+                --max-time 60 \
+                -X POST \
+                -H "Authorization: Bearer $HF_TOKEN" \
+                -H "Content-Type: application/json" \
+                -d "$payload_json" \
+                "https://router.huggingface.co/v1/chat/completions")
+              
+              # Check if curl timed out
+              if [[ $? -eq 124 ]]; then
+                echo "API call timed out after 60 seconds"
+                output="API response unavailable - Request timed out"
+              else
+                http_status=$(echo "$response" | tail -n 1 | cut -d':' -f2)
+                actual_response=$(echo "$response" | sed '$d')  # Remove last line (status code)
+                
+                echo "HTTP Status: $http_status"
+                echo "Response preview: $(echo "$actual_response" | head -c 200)"
+                
+                if [ "$http_status" != "200" ]; then
+                  output="API response unavailable - HTTP $http_status"
+                  echo "Error response: $actual_response"
+                else
+                  output=$(echo "$actual_response" | jq -r '.choices[0].message.content // "API response unavailable"')
+                  
+                  # If we still got an error in the response body
+                  if [ "$output" = "API response unavailable" ]; then
+                    output=$(echo "$actual_response" | jq -r '.error.message // "API response unavailable"')
+                    if [ "$output" != "API response unavailable" ]; then
+                      output="API response unavailable - $output"
+                    fi
+                  fi
+                fi
+              fi
             fi
-          done
 
-      - name: Configure Git
+            echo "# ${key} — $(date)" > "$file"
+            echo "**Topic:** ${RANDOM_TOPIC}" >> "$file"
+            echo "**Style:** ${STYLE}" >> "$file"
+            echo "**Depth:** ${DEPTH}" >> "$file"
+            echo "**UniqueKeyword:** ${UNIQUE_KEYWORD}" >> "$file"
+            echo "" >> "$file"
+            echo "$output" >> "$file"
+          done
+        
+      # ───────────────────────────────────────────────
+      # VERIFY OUTPUTS (NO MORE NULL)
+      # ───────────────────────────────────────────────
+      - name: Verify outputs
+        if: steps.random_decision.outputs.run_contribution == 'true'
         run: |
-          git config --global user.name "Weekly Summary Bot"
+          echo "Topic   → ${{ steps.generator.outputs.topic }}"
+          echo "Style   → ${{ steps.generator.outputs.style }}"
+          echo "Depth   → ${{ steps.generator.outputs.depth }}"
+          echo "Keyword → ${{ steps.generator.outputs.keyword }}"
+
+      # ───────────────────────────────────────────────
+      # JOB SUMMARY (CLEAN UI)
+      # ───────────────────────────────────────────────
+      - name: Workflow Summary
+        if: steps.random_decision.outputs.run_contribution == 'true'
+        run: |
+          {
+            echo "## Daily DevOps Content Generator"
+            echo ""
+            echo "- **Topic:** ${{ steps.generator.outputs.topic }}"
+            echo "- **Style:** ${{ steps.generator.outputs.style }}"
+            echo "- **Depth:** ${{ steps.generator.outputs.depth }}"
+            echo "- **Keyword:** ${{ steps.generator.outputs.keyword }}"
+          } >> $GITHUB_STEP_SUMMARY
+
+      # ───────────────────────────────────────────────
+      # GIT CONFIG
+      # ───────────────────────────────────────────────
+      - name: Configure Git
+        if: steps.random_decision.outputs.run_contribution == 'true'
+        run: |
+          git config --global user.name "DevOps Content Bot"
           git config --global user.email "bot@github.com"
           git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Commit summary
+      # ───────────────────────────────────────────────
+      # COMMIT & PUSH
+      # ───────────────────────────────────────────────
+      - name: Commit and push changes
+        if: steps.random_decision.outputs.run_contribution == 'true'
         run: |
-          git add WEEKLY_SUMMARY.md
-          git commit -m "docs(summary): auto-generate weekly DevOps summary" || exit 0
-          git push
+          export TZ="Asia/Kolkata"
+          git fetch origin
+          git checkout main
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "content: auto-generated $(date '+%Y-%m-%d %H:%M IST')"
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
