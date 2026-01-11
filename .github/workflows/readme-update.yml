@@ -87,7 +87,8 @@ jobs:
 
       - name: Commit README
         run: |
+          git pull origin main
           git add README.md
           git commit -m "docs(readme): elite DevOps portfolio with SVG architecture & cloud logos" || echo "No changes"
-          git pull --rebase origin main
           git push origin main
+          
