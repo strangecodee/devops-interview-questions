@@ -33,9 +33,9 @@ jobs:
           echo "" >> README.md
 
           echo '<p align="center">' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/amazonaws" width="36"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/googlecloud" width="36"/>' >> README.md
-          echo '<img src="https://cdn.simpleicons.org/microsoftazure" width="36"/>' >> README.md
+          echo '<img src="https://www.svgrepo.com/show/442933/brand-aws.svg" width="36"/>' >> README.md
+          echo '<img src="https://www.svgrepo.com/show/353805/google-cloud.svg" width="36"/>' >> README.md
+          echo '<img src="https://www.svgrepo.com/show/448274/azure.svg" width="36"/>' >> README.md
           echo '</p>' >> README.md
           echo "" >> README.md
 
