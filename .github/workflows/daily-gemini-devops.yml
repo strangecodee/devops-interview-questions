@@ -183,9 +183,9 @@ jobs:
       # ───────────────────────────────────────────────
       - name: Configure Git
         run: |
-          git config --global user.name "DevOps Content Bot"
-          git config --global user.email "bot@github.com"
-          git remote set-url origin https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git config --global user.name "strangecodee"
+          git config --global user.email "anuragmaurya883@gmail.com"
+          git remote set-url origin https://x-github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       # ───────────────────────────────────────────────
       # COMMIT & PUSH
