@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="80"/></p>
 <h1><img src="https://cdn.simpleicons.org/linux" width="26"/> DevOps Knowledge Hub Dashboard</h1>
 
-> Updated on: Wednesday, February 11, 2026 at 03:28:32 UTC
+> Updated on: Thursday, February 12, 2026 at 03:24:35 UTC
 
 
 
@@ -9,70 +9,70 @@
 
 | Category | Count | Progress |
 |----------|-------|----------|
-| DevOps Interview | 362 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 362%` |
-| Docker | 362 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 362%` |
-| Kubernetes | 363 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 363%` |
-| CI/CD | 363 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 363%` |
-| Total | 1450 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 362%` |
+| DevOps Interview | 373 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 373%` |
+| Docker | 373 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 373%` |
+| Kubernetes | 374 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 374%` |
+| CI/CD | 374 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 374%` |
+| Total | 1494 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 373%` |
 
 <h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>
 
 <h3><img src="https://cdn.simpleicons.org/linux" width="18"/> DevOps Interview Questions</h3>
 
-  - [devops-interview — Wed Feb 11 08:48:12 IST 2026](devops-interview/2026-02-11_08-47.md)
-  - [devops-interview — Wed Feb 11 07:00:28 IST 2026](devops-interview/2026-02-11_07-00.md)
-  - [devops-interview — Wed Feb 11 03:06:05 IST 2026](devops-interview/2026-02-11_03-05.md)
-  - [devops-interview — Wed Feb 11 02:25:33 IST 2026](devops-interview/2026-02-11_02-25.md)
-  - [devops-interview — Wed Feb 11 00:26:22 IST 2026](devops-interview/2026-02-11_00-26.md)
-  - [devops-interview — Tue Feb 10 18:25:19 IST 2026](devops-interview/2026-02-10_18-25.md)
-  - [devops-interview — Tue Feb 10 16:33:08 IST 2026](devops-interview/2026-02-10_16-32.md)
-  - [devops-interview — Tue Feb 10 16:16:34 IST 2026](devops-interview/2026-02-10_16-16.md)
-  - [devops-interview — Tue Feb 10 08:50:35 IST 2026](devops-interview/2026-02-10_08-49.md)
-  - [devops-interview — Tue Feb 10 05:00:30 IST 2026](devops-interview/2026-02-10_05-00.md)
+  - [devops-interview — Thu Feb 12 08:27:04 IST 2026](devops-interview/2026-02-12_08-26.md)
+  - [devops-interview — Thu Feb 12 04:55:05 IST 2026](devops-interview/2026-02-12_04-54.md)
+  - [devops-interview — Thu Feb 12 02:57:39 IST 2026](devops-interview/2026-02-12_02-57.md)
+  - [devops-interview — Thu Feb 12 02:19:57 IST 2026](devops-interview/2026-02-12_02-19.md)
+  - [devops-interview — Wed Feb 11 23:24:43 IST 2026](devops-interview/2026-02-11_23-24.md)
+  - [devops-interview — Wed Feb 11 22:27:31 IST 2026](devops-interview/2026-02-11_22-27.md)
+  - [devops-interview — Wed Feb 11 18:20:42 IST 2026](devops-interview/2026-02-11_18-20.md)
+  - [devops-interview — Wed Feb 11 16:29:10 IST 2026](devops-interview/2026-02-11_16-28.md)
+  - [devops-interview — Wed Feb 11 16:11:42 IST 2026](devops-interview/2026-02-11_16-11.md)
+  - [devops-interview — Wed Feb 11 15:14:32 IST 2026](devops-interview/2026-02-11_15-14.md)
 
 <h3><img src="https://cdn.simpleicons.org/docker" width="18"/> Docker & Containerization</h3>
 
-  - [docker — Wed Feb 11 08:48:29 IST 2026](docker/2026-02-11_08-48.md)
-  - [docker — Wed Feb 11 07:00:49 IST 2026](docker/2026-02-11_07-00.md)
-  - [docker — Wed Feb 11 03:06:20 IST 2026](docker/2026-02-11_03-06.md)
-  - [docker — Wed Feb 11 02:25:50 IST 2026](docker/2026-02-11_02-25.md)
-  - [docker — Wed Feb 11 00:26:38 IST 2026](docker/2026-02-11_00-26.md)
-  - [docker — Tue Feb 10 18:25:33 IST 2026](docker/2026-02-10_18-25.md)
-  - [docker — Tue Feb 10 16:33:26 IST 2026](docker/2026-02-10_16-33.md)
-  - [docker — Tue Feb 10 16:16:52 IST 2026](docker/2026-02-10_16-16.md)
-  - [docker — Tue Feb 10 08:50:49 IST 2026](docker/2026-02-10_08-50.md)
-  - [docker — Tue Feb 10 05:00:46 IST 2026](docker/2026-02-10_05-00.md)
+  - [docker — Thu Feb 12 08:27:22 IST 2026](docker/2026-02-12_08-27.md)
+  - [docker — Thu Feb 12 04:55:30 IST 2026](docker/2026-02-12_04-55.md)
+  - [docker — Thu Feb 12 02:57:55 IST 2026](docker/2026-02-12_02-57.md)
+  - [docker — Thu Feb 12 02:20:10 IST 2026](docker/2026-02-12_02-19.md)
+  - [docker — Wed Feb 11 23:24:59 IST 2026](docker/2026-02-11_23-24.md)
+  - [docker — Wed Feb 11 22:27:46 IST 2026](docker/2026-02-11_22-27.md)
+  - [docker — Wed Feb 11 18:21:00 IST 2026](docker/2026-02-11_18-20.md)
+  - [docker — Wed Feb 11 16:29:25 IST 2026](docker/2026-02-11_16-29.md)
+  - [docker — Wed Feb 11 16:11:59 IST 2026](docker/2026-02-11_16-11.md)
+  - [docker — Wed Feb 11 15:14:48 IST 2026](docker/2026-02-11_15-14.md)
 
 <h3><img src="https://cdn.simpleicons.org/kubernetes" width="18"/> Kubernetes Orchestration</h3>
 
-  - [kubernetes — Wed Feb 11 08:48:49 IST 2026](kubernetes/2026-02-11_08-48.md)
-  - [kubernetes — Wed Feb 11 07:01:13 IST 2026](kubernetes/2026-02-11_07-00.md)
-  - [kubernetes — Wed Feb 11 03:06:37 IST 2026](kubernetes/2026-02-11_03-06.md)
-  - [kubernetes — Wed Feb 11 02:26:12 IST 2026](kubernetes/2026-02-11_02-25.md)
-  - [kubernetes — Wed Feb 11 00:26:54 IST 2026](kubernetes/2026-02-11_00-26.md)
-  - [kubernetes — Tue Feb 10 18:25:52 IST 2026](kubernetes/2026-02-10_18-25.md)
-  - [kubernetes — Tue Feb 10 16:33:44 IST 2026](kubernetes/2026-02-10_16-33.md)
-  - [kubernetes — Tue Feb 10 16:17:09 IST 2026](kubernetes/2026-02-10_16-16.md)
-  - [kubernetes — Tue Feb 10 08:51:06 IST 2026](kubernetes/2026-02-10_08-50.md)
-  - [kubernetes — Tue Feb 10 05:01:11 IST 2026](kubernetes/2026-02-10_05-00.md)
+  - [kubernetes — Thu Feb 12 08:27:40 IST 2026](kubernetes/2026-02-12_08-27.md)
+  - [kubernetes — Thu Feb 12 04:55:51 IST 2026](kubernetes/2026-02-12_04-55.md)
+  - [kubernetes — Thu Feb 12 02:58:10 IST 2026](kubernetes/2026-02-12_02-57.md)
+  - [kubernetes — Thu Feb 12 02:20:26 IST 2026](kubernetes/2026-02-12_02-20.md)
+  - [kubernetes — Wed Feb 11 23:25:21 IST 2026](kubernetes/2026-02-11_23-24.md)
+  - [kubernetes — Wed Feb 11 22:28:04 IST 2026](kubernetes/2026-02-11_22-27.md)
+  - [kubernetes — Wed Feb 11 18:21:17 IST 2026](kubernetes/2026-02-11_18-21.md)
+  - [kubernetes — Wed Feb 11 16:29:39 IST 2026](kubernetes/2026-02-11_16-29.md)
+  - [kubernetes — Wed Feb 11 16:12:15 IST 2026](kubernetes/2026-02-11_16-11.md)
+  - [kubernetes — Wed Feb 11 15:15:05 IST 2026](kubernetes/2026-02-11_15-14.md)
 
 <h3><img src="https://cdn.simpleicons.org/jenkins" width="18"/> CI/CD Pipelines</h3>
 
-  - [cicd — Wed Feb 11 08:49:12 IST 2026](cicd/2026-02-11_08-48.md)
-  - [cicd — Wed Feb 11 07:02:06 IST 2026](cicd/2026-02-11_07-01.md)
-  - [cicd — Wed Feb 11 03:06:59 IST 2026](cicd/2026-02-11_03-06.md)
-  - [cicd — Wed Feb 11 02:26:34 IST 2026](cicd/2026-02-11_02-26.md)
-  - [cicd — Wed Feb 11 00:27:32 IST 2026](cicd/2026-02-11_00-26.md)
-  - [cicd — Tue Feb 10 18:26:12 IST 2026](cicd/2026-02-10_18-25.md)
-  - [cicd — Tue Feb 10 16:34:09 IST 2026](cicd/2026-02-10_16-33.md)
-  - [cicd — Tue Feb 10 16:17:29 IST 2026](cicd/2026-02-10_16-17.md)
-  - [cicd — Tue Feb 10 08:51:23 IST 2026](cicd/2026-02-10_08-51.md)
-  - [cicd — Tue Feb 10 05:01:41 IST 2026](cicd/2026-02-10_05-01.md)
+  - [cicd — Thu Feb 12 08:27:55 IST 2026](cicd/2026-02-12_08-27.md)
+  - [cicd — Thu Feb 12 04:56:08 IST 2026](cicd/2026-02-12_04-55.md)
+  - [cicd — Thu Feb 12 02:58:31 IST 2026](cicd/2026-02-12_02-58.md)
+  - [cicd — Thu Feb 12 02:20:44 IST 2026](cicd/2026-02-12_02-20.md)
+  - [cicd — Wed Feb 11 23:25:35 IST 2026](cicd/2026-02-11_23-25.md)
+  - [cicd — Wed Feb 11 22:28:26 IST 2026](cicd/2026-02-11_22-28.md)
+  - [cicd — Wed Feb 11 18:21:54 IST 2026](cicd/2026-02-11_18-21.md)
+  - [cicd — Wed Feb 11 16:29:51 IST 2026](cicd/2026-02-11_16-29.md)
+  - [cicd — Wed Feb 11 16:12:39 IST 2026](cicd/2026-02-11_16-12.md)
+  - [cicd — Wed Feb 11 15:15:22 IST 2026](cicd/2026-02-11_15-15.md)
 
 <h2><img src="https://cdn.simpleicons.org/apachekafka" width="20"/> Quick Stats</h2>
 
-- Last Update: February 11, 2026
-- Total Resources: 1450 articles
+- Last Update: February 12, 2026
+- Total Resources: 1494 articles
 - Daily Automation: Enabled
 - Tech Stack: Docker, Kubernetes, CI/CD, Linux
 
