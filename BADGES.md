@@ -1,7 +1,7 @@
 # 🏆 Auto-Generated Repo Badges
 
 ![Updated](https://img.shields.io/badge/Updated-2026-08-10-brightgreen)
-![Interview](https://img.shields.io/badge/Interview_1821-purple)
-![Docker](https://img.shields.io/badge/Docker_1821-blue)
-![Kubernetes](https://img.shields.io/badge/K8s_1822-green)
-![CI/CD](https://img.shields.io/badge/CICD_1822-orange)
+![Interview](https://img.shields.io/badge/Interview_1822-purple)
+![Docker](https://img.shields.io/badge/Docker_1822-blue)
+![Kubernetes](https://img.shields.io/badge/K8s_1823-green)
+![CI/CD](https://img.shields.io/badge/CICD_1823-orange)
