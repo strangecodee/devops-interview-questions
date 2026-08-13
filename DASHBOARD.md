@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/SamHerbert/SVG-Loaders/master/svg-loaders/rings.svg" width="80"/></p>
 <h1><img src="https://cdn.simpleicons.org/linux" width="26"/> DevOps Knowledge Hub Dashboard</h1>
 
-> Updated on: Wednesday, August 12, 2026 at 03:00:52 UTC
+> Updated on: Thursday, August 13, 2026 at 03:03:39 UTC
 
 
 
@@ -9,70 +9,70 @@
 
 | Category | Count | Progress |
 |----------|-------|----------|
-| DevOps Interview | 1839 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1839%` |
-| Docker | 1839 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1839%` |
-| Kubernetes | 1840 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1840%` |
-| CI/CD | 1840 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1840%` |
-| Total | 7358 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1839%` |
+| DevOps Interview | 1847 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1847%` |
+| Docker | 1847 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1847%` |
+| Kubernetes | 1848 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1848%` |
+| CI/CD | 1848 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1848%` |
+| Total | 7390 | `[▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 1847%` |
 
 <h2><img src="https://cdn.simpleicons.org/bookstack" width="20"/> Latest Content by Category</h2>
 
 <h3><img src="https://cdn.simpleicons.org/linux" width="18"/> DevOps Interview Questions</h3>
 
+  - [devops-interview — Thu Aug 13 08:04:35 IST 2026](devops-interview/2026-08-13_08-04.md)
+  - [devops-interview — Thu Aug 13 06:44:15 IST 2026](devops-interview/2026-08-13_06-43.md)
+  - [devops-interview — Thu Aug 13 03:06:41 IST 2026](devops-interview/2026-08-13_03-06.md)
+  - [devops-interview — Thu Aug 13 02:24:50 IST 2026](devops-interview/2026-08-13_02-24.md)
+  - [devops-interview — Wed Aug 12 18:19:14 IST 2026](devops-interview/2026-08-12_18-18.md)
+  - [devops-interview — Wed Aug 12 16:34:49 IST 2026](devops-interview/2026-08-12_16-34.md)
+  - [devops-interview — Wed Aug 12 16:23:16 IST 2026](devops-interview/2026-08-12_16-23.md)
+  - [devops-interview — Wed Aug 12 09:27:29 IST 2026](devops-interview/2026-08-12_09-27.md)
   - [devops-interview — Wed Aug 12 08:03:01 IST 2026](devops-interview/2026-08-12_08-02.md)
   - [devops-interview — Wed Aug 12 06:42:23 IST 2026](devops-interview/2026-08-12_06-42.md)
-  - [devops-interview — Wed Aug 12 05:01:33 IST 2026](devops-interview/2026-08-12_05-01.md)
-  - [devops-interview — Wed Aug 12 04:03:07 IST 2026](devops-interview/2026-08-12_04-02.md)
-  - [devops-interview — Wed Aug 12 03:06:54 IST 2026](devops-interview/2026-08-12_03-06.md)
-  - [devops-interview — Wed Aug 12 02:25:20 IST 2026](devops-interview/2026-08-12_02-25.md)
-  - [devops-interview — Wed Aug 12 02:06:04 IST 2026](devops-interview/2026-08-12_02-05.md)
-  - [devops-interview — Wed Aug 12 00:20:54 IST 2026](devops-interview/2026-08-12_00-20.md)
-  - [devops-interview — Tue Aug 11 21:22:40 IST 2026](devops-interview/2026-08-11_21-22.md)
-  - [devops-interview — Tue Aug 11 16:26:59 IST 2026](devops-interview/2026-08-11_16-26.md)
 
 <h3><img src="https://cdn.simpleicons.org/docker" width="18"/> Docker & Containerization</h3>
 
+  - [docker — Thu Aug 13 08:04:48 IST 2026](docker/2026-08-13_08-04.md)
+  - [docker — Thu Aug 13 06:44:37 IST 2026](docker/2026-08-13_06-44.md)
+  - [docker — Thu Aug 13 03:06:55 IST 2026](docker/2026-08-13_03-06.md)
+  - [docker — Thu Aug 13 02:25:06 IST 2026](docker/2026-08-13_02-24.md)
+  - [docker — Wed Aug 12 18:19:32 IST 2026](docker/2026-08-12_18-19.md)
+  - [docker — Wed Aug 12 16:35:03 IST 2026](docker/2026-08-12_16-34.md)
+  - [docker — Wed Aug 12 16:23:31 IST 2026](docker/2026-08-12_16-23.md)
+  - [docker — Wed Aug 12 09:27:49 IST 2026](docker/2026-08-12_09-27.md)
   - [docker — Wed Aug 12 08:03:15 IST 2026](docker/2026-08-12_08-03.md)
   - [docker — Wed Aug 12 06:42:39 IST 2026](docker/2026-08-12_06-42.md)
-  - [docker — Wed Aug 12 05:01:45 IST 2026](docker/2026-08-12_05-01.md)
-  - [docker — Wed Aug 12 04:03:22 IST 2026](docker/2026-08-12_04-03.md)
-  - [docker — Wed Aug 12 03:07:10 IST 2026](docker/2026-08-12_03-06.md)
-  - [docker — Wed Aug 12 02:25:34 IST 2026](docker/2026-08-12_02-25.md)
-  - [docker — Wed Aug 12 02:06:20 IST 2026](docker/2026-08-12_02-06.md)
-  - [docker — Wed Aug 12 00:21:11 IST 2026](docker/2026-08-12_00-20.md)
-  - [docker — Tue Aug 11 21:22:54 IST 2026](docker/2026-08-11_21-22.md)
-  - [docker — Tue Aug 11 16:27:14 IST 2026](docker/2026-08-11_16-26.md)
 
 <h3><img src="https://cdn.simpleicons.org/kubernetes" width="18"/> Kubernetes Orchestration</h3>
 
+  - [kubernetes — Thu Aug 13 08:05:02 IST 2026](kubernetes/2026-08-13_08-04.md)
+  - [kubernetes — Thu Aug 13 06:44:53 IST 2026](kubernetes/2026-08-13_06-44.md)
+  - [kubernetes — Thu Aug 13 03:07:11 IST 2026](kubernetes/2026-08-13_03-06.md)
+  - [kubernetes — Thu Aug 13 02:25:08 IST 2026](kubernetes/2026-08-13_02-25.md)
+  - [kubernetes — Wed Aug 12 18:19:39 IST 2026](kubernetes/2026-08-12_18-19.md)
+  - [kubernetes — Wed Aug 12 16:35:04 IST 2026](kubernetes/2026-08-12_16-35.md)
+  - [kubernetes — Wed Aug 12 16:23:44 IST 2026](kubernetes/2026-08-12_16-23.md)
+  - [kubernetes — Wed Aug 12 09:28:03 IST 2026](kubernetes/2026-08-12_09-27.md)
   - [kubernetes — Wed Aug 12 08:03:31 IST 2026](kubernetes/2026-08-12_08-03.md)
   - [kubernetes — Wed Aug 12 06:42:55 IST 2026](kubernetes/2026-08-12_06-42.md)
-  - [kubernetes — Wed Aug 12 05:01:47 IST 2026](kubernetes/2026-08-12_05-01.md)
-  - [kubernetes — Wed Aug 12 04:03:38 IST 2026](kubernetes/2026-08-12_04-03.md)
-  - [kubernetes — Wed Aug 12 03:07:25 IST 2026](kubernetes/2026-08-12_03-07.md)
-  - [kubernetes — Wed Aug 12 02:25:54 IST 2026](kubernetes/2026-08-12_02-25.md)
-  - [kubernetes — Wed Aug 12 02:06:37 IST 2026](kubernetes/2026-08-12_02-06.md)
-  - [kubernetes — Wed Aug 12 00:21:25 IST 2026](kubernetes/2026-08-12_00-21.md)
-  - [kubernetes — Tue Aug 11 21:23:09 IST 2026](kubernetes/2026-08-11_21-22.md)
-  - [kubernetes — Tue Aug 11 16:27:34 IST 2026](kubernetes/2026-08-11_16-27.md)
 
 <h3><img src="https://cdn.simpleicons.org/jenkins" width="18"/> CI/CD Pipelines</h3>
 
+  - [cicd — Thu Aug 13 08:05:05 IST 2026](cicd/2026-08-13_08-05.md)
+  - [cicd — Thu Aug 13 06:45:09 IST 2026](cicd/2026-08-13_06-44.md)
+  - [cicd — Thu Aug 13 03:07:33 IST 2026](cicd/2026-08-13_03-07.md)
+  - [cicd — Thu Aug 13 02:25:10 IST 2026](cicd/2026-08-13_02-25.md)
+  - [cicd — Wed Aug 12 18:19:41 IST 2026](cicd/2026-08-12_18-19.md)
+  - [cicd — Wed Aug 12 16:35:06 IST 2026](cicd/2026-08-12_16-35.md)
+  - [cicd — Wed Aug 12 16:23:48 IST 2026](cicd/2026-08-12_16-23.md)
+  - [cicd — Wed Aug 12 09:28:17 IST 2026](cicd/2026-08-12_09-28.md)
   - [cicd — Wed Aug 12 08:03:33 IST 2026](cicd/2026-08-12_08-03.md)
   - [cicd — Wed Aug 12 06:43:13 IST 2026](cicd/2026-08-12_06-42.md)
-  - [cicd — Wed Aug 12 05:01:49 IST 2026](cicd/2026-08-12_05-01.md)
-  - [cicd — Wed Aug 12 04:03:55 IST 2026](cicd/2026-08-12_04-03.md)
-  - [cicd — Wed Aug 12 03:07:39 IST 2026](cicd/2026-08-12_03-07.md)
-  - [cicd — Wed Aug 12 02:26:15 IST 2026](cicd/2026-08-12_02-25.md)
-  - [cicd — Wed Aug 12 02:06:50 IST 2026](cicd/2026-08-12_02-06.md)
-  - [cicd — Wed Aug 12 00:21:40 IST 2026](cicd/2026-08-12_00-21.md)
-  - [cicd — Tue Aug 11 21:23:25 IST 2026](cicd/2026-08-11_21-23.md)
-  - [cicd — Tue Aug 11 16:27:35 IST 2026](cicd/2026-08-11_16-27.md)
 
 <h2><img src="https://cdn.simpleicons.org/apachekafka" width="20"/> Quick Stats</h2>
 
-- Last Update: August 12, 2026
-- Total Resources: 7358 articles
+- Last Update: August 13, 2026
+- Total Resources: 7390 articles
 - Daily Automation: Enabled
 - Tech Stack: Docker, Kubernetes, CI/CD, Linux
 
